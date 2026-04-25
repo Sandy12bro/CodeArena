@@ -48,7 +48,7 @@ function DashboardContent() {
             <div className="lg:col-span-1 flex flex-col gap-8">
               <ActivityFeed />
               <div className="neo-card neo-card-dark p-6">
-                <h2 className="text-xl font-black uppercase mb-6 border-b-2 border-[#333] pb-2">
+                <h2 className="text-xl font-black uppercase mb-6 border-b-2 border-border pb-2">
                   Top Performers
                 </h2>
                 <Leaderboard />

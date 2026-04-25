@@ -36,15 +36,15 @@ export default function DailyChallenge() {
 
   if (isCompleted) {
     return (
-      <div className="neo-card bg-brand-green text-black p-6 mb-8 flex items-center justify-center gap-4">
+      <div className="neo-card-red bg-green-500 text-black p-6 mb-8 flex items-center justify-center gap-4">
         <CheckCircle size={32} />
-        <h3 className="text-2xl font-black">Daily Challenge Completed!</h3>
+        <h3 className="text-2xl font-black uppercase tracking-tight">Daily Challenge Completed!</h3>
       </div>
     );
   }
 
   return (
-    <div className="neo-card bg-brand-red text-white p-6 relative overflow-hidden mb-8 transition-colors duration-500">
+    <div className="neo-card-red p-6 relative overflow-hidden mb-8 transition-colors duration-500">
       <div className="absolute right-0 bottom-0 opacity-20 transform translate-x-1/4 translate-y-1/4">
         <Bug size={200} />
       </div>
@@ -52,20 +52,20 @@ export default function DailyChallenge() {
       <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="flex-1">
           <div className="flex items-center gap-2 mb-3">
-            <span className="bg-background text-foreground px-2 py-1 text-xs font-bold uppercase border border-border">Daily Challenge</span>
-            <div className="flex items-center gap-1 text-white bg-black/30 px-2 py-1 rounded-sm border border-black/30 text-xs font-bold">
+            <span className="bg-background text-foreground px-2 py-1 text-xs font-black uppercase border-2 border-border shadow-[2px_2px_0px_var(--border)]">Daily Challenge</span>
+            <div className="flex items-center gap-1 text-white bg-black px-2 py-1 border-2 border-white text-xs font-black shadow-[2px_2px_0px_rgba(0,0,0,0.5)]">
               <Timer size={14} className={isActive ? "animate-pulse text-brand-yellow" : ""} /> 
               {formatTime(timeLeft)}
             </div>
           </div>
-          <h3 className="text-2xl font-black mb-2 drop-shadow-[2px_2px_0px_#000000]">Fix this Python bug in under 3 minutes</h3>
-          <p className="font-bold opacity-90">A recursive function is causing a stack overflow. Can you spot the missing base case?</p>
+          <h3 className="text-2xl font-black mb-2 drop-shadow-[4px_4px_0px_#000000] uppercase tracking-tighter text-white">Fix this Python bug in under 3 minutes</h3>
+          <p className="font-black text-white/90 uppercase text-xs tracking-widest">A recursive function is causing a stack overflow. Can you spot the missing base case?</p>
         </div>
         
         <div className="flex flex-col items-center gap-3 min-w-[200px]">
           <div className="text-center">
-            <p className="text-sm font-bold opacity-90">REWARD</p>
-            <p className="text-3xl font-black drop-shadow-[2px_2px_0px_#000000]">+250 XP</p>
+            <p className="text-xs font-black text-white uppercase tracking-[0.2em] mb-1">Reward</p>
+            <p className="text-4xl font-black text-brand-yellow drop-shadow-[4px_4px_0px_#000000]">+250 XP</p>
           </div>
           
           {!isActive ? (

@@ -25,7 +25,7 @@ export default function StatsGrid() {
           onClick={() => openModal("Stat Details", stat)}
           className={`neo-card ${stat.bg} p-4 flex items-center gap-4 hover:-translate-y-1 transition-transform cursor-pointer group`}
         >
-          <div className="p-3 bg-background rounded-lg border-2 border-border neo-shadow group-hover:bg-card">
+          <div className="p-3 bg-background border-2 border-border neo-shadow group-hover:bg-card">
             <stat.icon size={24} className={stat.color} />
           </div>
           <div>
