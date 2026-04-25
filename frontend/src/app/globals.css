@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #f4f4f5;
+  --bg: #e5e5e5;
   --text: #0f0f0f;
   --card: #ffffff;
   --border: #000000;
@@ -51,44 +51,44 @@
   }
   
   .neo-card {
-    @apply border-2 border-border shadow-[4px_4px_0px_var(--border)] rounded-md overflow-hidden transition-all duration-200;
+    @apply border-2 border-border shadow-[4px_4px_0px_var(--border)] rounded-[8px] overflow-hidden transition-all duration-200;
   }
   
   .neo-card-yellow {
-    @apply bg-brand-yellow text-black border-2 border-border shadow-[4px_4px_0px_var(--border)] rounded-md;
+    @apply bg-brand-yellow text-black border-2 border-border shadow-[4px_4px_0px_var(--border)] rounded-[8px];
   }
   
   .neo-card-blue {
-    @apply bg-brand-blue text-white border-2 border-border shadow-[4px_4px_0px_var(--border)] rounded-md;
+    @apply bg-brand-blue text-white border-2 border-border shadow-[4px_4px_0px_var(--border)] rounded-[8px];
   }
   
   .neo-card-red {
-    @apply bg-brand-red text-white border-2 border-border shadow-[4px_4px_0px_var(--border)] rounded-md;
+    @apply bg-brand-red text-white border-2 border-border shadow-[4px_4px_0px_var(--border)] rounded-[8px];
   }
   
   .neo-card-white {
-    @apply bg-card text-foreground border-2 border-border shadow-[4px_4px_0px_var(--border)] rounded-md;
+    @apply bg-card text-foreground border-2 border-border shadow-[4px_4px_0px_var(--border)] rounded-[8px];
   }
   
   .neo-card-dark {
-    @apply bg-card text-foreground border-2 border-border shadow-[4px_4px_0px_var(--border)] rounded-md;
+    @apply bg-card text-foreground border-2 border-border shadow-[4px_4px_0px_var(--border)] rounded-[8px];
   }
 
   .neo-button {
-    @apply border-2 border-border shadow-[3px_3px_0px_var(--border)] rounded-md px-6 py-2 font-black uppercase tracking-wider transition-all duration-150;
-    @apply hover:-translate-y-[2px] active:translate-y-[3px] active:shadow-none;
+    @apply border-2 border-border shadow-[2px_2px_0px_var(--border)] rounded-md px-6 py-2 font-black uppercase tracking-wider transition-all duration-150;
+    @apply hover:-translate-y-[2px] active:translate-y-[1px] active:shadow-none;
   }
   
   .neo-button-yellow {
-    @apply bg-brand-yellow text-black border-2 border-border shadow-[3px_3px_0px_var(--border)] rounded-md;
+    @apply bg-brand-yellow text-black border-2 border-border shadow-[2px_2px_0px_var(--border)] rounded-md;
   }
   
   .neo-button-blue {
-    @apply bg-brand-blue text-white border-2 border-border shadow-[3px_3px_0px_var(--border)] rounded-md;
+    @apply bg-brand-blue text-white border-2 border-border shadow-[2px_2px_0px_var(--border)] rounded-md;
   }
   
   .neo-button-white {
-    @apply bg-card text-foreground border-2 border-border shadow-[3px_3px_0px_var(--border)] rounded-md;
+    @apply bg-card text-foreground border-2 border-border shadow-[2px_2px_0px_var(--border)] rounded-md;
   }
 }
 
@@ -100,4 +100,5 @@
     background-position: 2rem 2rem;
   }
 }
+
 

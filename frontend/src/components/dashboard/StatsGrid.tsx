@@ -18,19 +18,19 @@ export default function StatsGrid() {
   ];
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
+    <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-10">
       {stats.map((stat, i) => (
         <div 
           key={i} 
           onClick={() => openModal("Stat Details", stat)}
-          className={`neo-card ${stat.bg} p-4 flex items-center gap-4 hover:-translate-y-1 transition-transform cursor-pointer group`}
+          className={`neo-card bg-white p-6 flex items-center gap-5 hover:-translate-y-2 hover:rotate-1 transition-all duration-300 cursor-pointer group shadow-[4px_4px_0px_#000]`}
         >
-          <div className="p-3 bg-background border-2 border-border neo-shadow group-hover:bg-card">
-            <stat.icon size={24} className={stat.color} />
+          <div className="p-4 bg-gray-50 border-2 border-black rounded-md group-hover:bg-white group-hover:scale-110 transition-all">
+            <stat.icon size={26} className={stat.color} />
           </div>
           <div>
-            <p className="text-muted text-sm font-bold uppercase">{stat.title}</p>
-            <p className="text-2xl font-black text-foreground">{stat.value}</p>
+            <p className="text-black/50 text-[10px] font-black uppercase tracking-[0.2em] mb-1">{stat.title}</p>
+            <p className="text-3xl font-black text-black leading-none">{stat.value}</p>
           </div>
         </div>
       ))}
