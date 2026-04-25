@@ -84,7 +84,7 @@ export default function LandingPage() {
         <div className="text-center w-full shrink-0 pt-2">
           <Link
             href="/login"
-            className="neo-button bg-brand-yellow text-black inline-block text-xl md:text-2xl py-4 md:py-6 px-8 md:px-12 hover:-translate-y-2 hover:shadow-[8px_8px_0px_var(--border)] rotate-1 transition-all rounded-md font-black shadow-[4px_4px_0px_var(--border)] border-2 border-border"
+            className="neo-button bg-brand-yellow text-black inline-block text-xl md:text-2xl py-4 md:py-6 px-8 md:px-12 hover:-translate-y-2 rotate-1 transition-all rounded-md font-black shadow-[6px_6px_0px_#000]"
           >
             🚀 START LEARNING NOW
           </Link>

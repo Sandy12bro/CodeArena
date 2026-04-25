@@ -12,11 +12,12 @@
 }
 
 .dark {
-  --bg: #0d0d0d;
-  --text: #ffffff;
-  --card: #141414;
-  --border: #000000;
-  --muted: #9ca3af;
+  --bg: #0a0a0c;        /* Deepest Charcoal */
+  --text: #f0f0f0;
+  --card: #15171d;     /* Saturated Charcoal */
+  --border: #2d3139;   /* Dark Slate Border */
+  --muted: #94a3b8;
+  --primary: #8b5cf6;  /* Premium Violet */
 }
 
 @theme {
@@ -51,44 +52,44 @@
   }
   
   .neo-card {
-    @apply border-2 border-border shadow-[4px_4px_0px_var(--border)] rounded-[8px] overflow-hidden transition-all duration-200;
+    @apply bg-card text-foreground border-2 border-border shadow-[4px_4px_0px_#000] rounded-[8px] overflow-hidden transition-all duration-200;
   }
   
   .neo-card-yellow {
-    @apply bg-brand-yellow text-black border-2 border-border shadow-[4px_4px_0px_var(--border)] rounded-[8px];
+    @apply bg-brand-yellow text-black border-2 border-border shadow-[4px_4px_0px_#000] rounded-[8px];
   }
   
   .neo-card-blue {
-    @apply bg-brand-blue text-white border-2 border-border shadow-[4px_4px_0px_var(--border)] rounded-[8px];
+    @apply bg-brand-blue text-white border-2 border-border shadow-[4px_4px_0px_#000] rounded-[8px];
   }
   
   .neo-card-red {
-    @apply bg-brand-red text-white border-2 border-border shadow-[4px_4px_0px_var(--border)] rounded-[8px];
+    @apply bg-brand-red text-white border-2 border-border shadow-[4px_4px_0px_#000] rounded-[8px];
   }
   
   .neo-card-white {
-    @apply bg-card text-foreground border-2 border-border shadow-[4px_4px_0px_var(--border)] rounded-[8px];
+    @apply bg-card text-foreground border-2 border-border shadow-[4px_4px_0px_#000] rounded-[8px];
   }
   
   .neo-card-dark {
-    @apply bg-card text-foreground border-2 border-border shadow-[4px_4px_0px_var(--border)] rounded-[8px];
+    @apply bg-card text-foreground border-2 border-border shadow-[4px_4px_0px_#000] rounded-[8px];
   }
 
   .neo-button {
-    @apply border-2 border-border shadow-[2px_2px_0px_var(--border)] rounded-md px-6 py-2 font-black uppercase tracking-wider transition-all duration-150;
+    @apply border-2 border-border shadow-[2px_2px_0px_#000] rounded-md px-6 py-2 font-black uppercase tracking-wider transition-all duration-150;
     @apply hover:-translate-y-[2px] active:translate-y-[1px] active:shadow-none;
   }
   
   .neo-button-yellow {
-    @apply bg-brand-yellow text-black border-2 border-border shadow-[2px_2px_0px_var(--border)] rounded-md;
+    @apply bg-brand-yellow text-black border-2 border-border shadow-[2px_2px_0px_#000] rounded-md;
   }
   
   .neo-button-blue {
-    @apply bg-brand-blue text-white border-2 border-border shadow-[2px_2px_0px_var(--border)] rounded-md;
+    @apply bg-brand-blue text-white border-2 border-border shadow-[2px_2px_0px_#000] rounded-md;
   }
   
   .neo-button-white {
-    @apply bg-card text-foreground border-2 border-border shadow-[2px_2px_0px_var(--border)] rounded-md;
+    @apply bg-card text-foreground border-2 border-border shadow-[2px_2px_0px_#000] rounded-md;
   }
 }
 

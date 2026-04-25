@@ -28,15 +28,15 @@ export default function HeroWelcome({ userName }: { userName: string }) {
         </div>
         
         <div className="flex gap-4 flex-wrap">
-          <div className="neo-card bg-white p-5 text-center min-w-[120px] shadow-[4px_4px_0px_#000]">
-            <p className="text-muted font-black text-[10px] mb-1 uppercase tracking-widest">Global Rank</p>
-            <p className="text-4xl font-black text-black">#{level}</p>
+          <div className="neo-card p-5 text-center min-w-[120px]">
+            <p className="opacity-60 font-black text-[10px] mb-1 uppercase tracking-widest">Global Rank</p>
+            <p className="text-4xl font-black">#{level}</p>
           </div>
-          <div className="neo-card bg-yellow-300 p-5 text-center min-w-[120px] shadow-[4px_4px_0px_#000]">
+          <div className="neo-card-yellow p-5 text-center min-w-[120px]">
             <p className="text-black font-black text-[10px] mb-1 uppercase tracking-widest">Total XP</p>
             <p className="text-4xl font-black text-black">{xp}</p>
           </div>
-          <div className="neo-card bg-red-400 p-5 text-center min-w-[120px] shadow-[4px_4px_0px_#000] flex flex-col items-center">
+          <div className="neo-card-red p-5 text-center min-w-[120px] flex flex-col items-center">
             <p className="text-white font-black text-[10px] mb-1 uppercase tracking-widest flex items-center gap-1">
               Streak <Flame size={12} fill="white" />
             </p>

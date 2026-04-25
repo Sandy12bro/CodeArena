@@ -25,24 +25,24 @@ export default function TopNavbar() {
       <div className="flex items-center gap-4">
         <button 
           onClick={() => openModal("Notifications")}
-          className="p-2 neo-card neo-card-dark hover:-translate-y-1"
+          className="p-2 neo-card hover:-translate-y-1 transition-all"
         >
           <Bell size={20} className="text-foreground" />
         </button>
         <button 
           onClick={toggleTheme}
-          className="p-2 neo-card neo-card-dark hover:-translate-y-1"
+          className="p-2 neo-card hover:-translate-y-1 transition-all"
         >
-          {theme === "dark" ? <Sun size={20} className="text-foreground" /> : <Moon size={20} className="text-foreground" />}
+          {theme === "dark" ? <Sun size={20} className="text-brand-yellow" /> : <Moon size={20} className="text-brand-blue" />}
         </button>
         <div 
           onClick={() => openModal("User Profile")}
-          className="flex items-center gap-2 neo-card neo-card-dark px-3 py-1 cursor-pointer hover:-translate-y-1"
+          className="flex items-center gap-3 neo-card px-4 py-1.5 cursor-pointer hover:-translate-y-1 transition-all"
         >
-          <div className="w-8 h-8 bg-brand-blue rounded-full border-2 border-black flex items-center justify-center">
-            <User size={16} className="text-foreground" />
+          <div className="w-8 h-8 bg-brand-blue border-2 border-black rounded-md flex items-center justify-center shadow-[2px_2px_0px_#000]">
+            <User size={16} className="text-white" />
           </div>
-          <span className="font-bold text-sm">Profile</span>
+          <span className="font-black text-xs uppercase tracking-widest leading-none">Profile</span>
         </div>
       </div>
     </div>

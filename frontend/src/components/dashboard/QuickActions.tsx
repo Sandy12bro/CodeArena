@@ -28,12 +28,12 @@ export default function QuickActions() {
           <div 
             key={i} 
             onClick={() => openModal(action.title)}
-            className={`neo-card ${action.tint} ${action.accent} p-6 flex flex-col items-center justify-center gap-4 cursor-pointer transition-all duration-150 shadow-[2px_2px_0px_#000] hover:-translate-y-2 hover:shadow-[6px_6px_0px_#000] group`}
+            className={`neo-card ${action.tint} ${action.accent} p-6 flex flex-col items-center justify-center gap-4 cursor-pointer transition-all duration-150 hover:-translate-y-2 hover:shadow-[6px_6px_0px_#000] group`}
           >
-            <div className="p-3 bg-white border-2 border-black rounded-md group-hover:rotate-6 transition-transform">
+            <div className="p-3 bg-background border-2 border-border rounded-md group-hover:rotate-6 transition-transform">
               <action.icon size={28} className={action.color} />
             </div>
-            <span className="font-black text-[10px] uppercase tracking-[0.2em] text-center text-black/70 group-hover:text-black">{action.title}</span>
+            <span className="font-black text-[10px] uppercase tracking-[0.2em] text-center opacity-70 group-hover:opacity-100">{action.title}</span>
           </div>
         ))}
       </div>
