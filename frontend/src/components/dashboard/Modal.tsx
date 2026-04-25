@@ -2,10 +2,25 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useDashboard } from "../../context/DashboardContext";
-import { X } from "lucide-react";
+import { 
+  X, Upload, Trash2, Play, Square, Search, 
+  MessageSquare, Send, Copy, ExternalLink, 
+  ChevronRight, Bug, BookOpen, Terminal, Bot
+} from "lucide-react";
+import React, { useRef, useState } from "react";
+
+import { useAuth } from "../../context/AuthContext";
 
 export default function ModalContainer() {
   const { activeModal, modalData, closeModal } = useDashboard();
+  const { user, profilePic, updateProfilePic, logout } = useAuth();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [explaining, setExplaining] = useState(false);
+  const [chatInput, setChatInput] = useState("");
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // ... file change logic ...
+  };
 
   if (!activeModal) return null;
 
@@ -16,11 +31,14 @@ export default function ModalContainer() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 20 }}
-          className="neo-card bg-[#141414] text-white w-full max-w-2xl max-h-[80vh] flex flex-col relative"
+          className="neo-card bg-[#141414] text-white w-full max-w-3xl max-h-[85vh] flex flex-col relative"
         >
           {/* Header */}
           <div className="flex justify-between items-center p-4 border-b-2 border-[#333]">
-            <h2 className="text-xl font-black uppercase">{activeModal}</h2>
+            <div className="flex items-center gap-3">
+              <span className="w-3 h-3 rounded-full bg-brand-yellow"></span>
+              <h2 className="text-xl font-black uppercase tracking-tighter">{activeModal}</h2>
+            </div>
             <button 
               onClick={closeModal}
               className="p-1 neo-card neo-card-red hover:-translate-y-1 transition-transform"
@@ -30,48 +48,224 @@ export default function ModalContainer() {
           </div>
           
           {/* Content Body */}
-          <div className="p-6 overflow-y-auto flex-1">
+          <div className="p-6 overflow-y-auto flex-1 custom-scrollbar">
+            
             {activeModal === "Visualizer" && (
-              <div className="text-center py-12">
-                <p className="text-brand-blue font-bold text-lg mb-2">Interactive Code Execution Visualizer</p>
-                <p className="text-muted">Loading visualization engine...</p>
+              <div className="space-y-6">
+                <div className="bg-[#0a0a0a] border-2 border-[#333] p-4 rounded-md font-mono text-sm relative">
+                  <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-brand-blue"></div>
+                  <p className="text-brand-blue mb-1">line 12: <span className="text-white">for i in range(5):</span></p>
+                  <p className="text-brand-blue opacity-50">line 13: <span className="text-white ml-4">print(i * 2)</span></p>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="p-4 bg-[#111] border-2 border-[#333] rounded-md">
+                    <p className="text-[10px] font-black text-muted uppercase mb-3">Memory Heap</p>
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-xs"><span className="text-brand-blue">i</span> <span className="font-bold">2</span></div>
+                      <div className="flex justify-between text-xs"><span className="text-brand-blue">list_data</span> <span className="font-bold">[Ref...]</span></div>
+                    </div>
+                  </div>
+                  <div className="p-4 bg-[#111] border-2 border-[#333] rounded-md">
+                    <p className="text-[10px] font-black text-muted uppercase mb-3">Call Stack</p>
+                    <div className="space-y-2">
+                      <div className="text-xs font-bold text-brand-green">main()</div>
+                      <div className="text-xs opacity-50">global</div>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex gap-4">
+                  <button className="flex-1 neo-button neo-button-blue flex items-center justify-center gap-2">
+                    <ChevronRight size={18} /> Next Step
+                  </button>
+                  <button className="p-3 neo-card bg-[#222]"><Play size={18} /></button>
+                </div>
+              </div>
+            )}
+
+            {activeModal === "Debugger" && (
+              <div className="space-y-4">
+                <div className="flex gap-2 mb-4">
+                  <button className="px-3 py-1 bg-brand-red/20 text-brand-red border-2 border-brand-red rounded text-[10px] font-black">BREAKPOINT: L24</button>
+                  <button className="px-3 py-1 bg-[#222] border-2 border-[#333] text-muted rounded text-[10px] font-black uppercase tracking-widest">Running...</button>
+                </div>
+                <div className="space-y-2">
+                  <p className="text-xs font-black uppercase text-muted">Variable Watch</p>
+                  {[
+                    { name: "is_active", value: "true", type: "bool" },
+                    { name: "count", value: "14", type: "int" },
+                    { name: "buffer", value: "nil", type: "pointer", error: true }
+                  ].map((v, i) => (
+                    <div key={i} className="flex justify-between p-3 bg-[#111] border-2 border-[#222] rounded text-sm">
+                      <span className="font-mono text-brand-blue">{v.name}</span>
+                      <span className={`font-mono ${v.error ? 'text-brand-red underline' : 'text-white'}`}>{v.value}</span>
+                    </div>
+                  ))}
+                </div>
+                <button className="w-full neo-button neo-button-red flex items-center justify-center gap-2 mt-4">
+                   Step Into
+                </button>
               </div>
             )}
             
             {activeModal === "Sandbox" && (
-              <div className="h-64 bg-[#0a0a0a] border-2 border-[#333] rounded-md flex items-center justify-center">
-                <p className="font-mono text-brand-green">print("Hello World")</p>
+              <div className="flex flex-col gap-4 h-full min-h-[400px]">
+                <div className="flex-1 bg-[#0a0a0a] border-2 border-[#333] p-4 rounded-md font-mono text-sm relative group">
+                   <div className="absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <button className="p-1 bg-[#222] rounded border border-[#444]"><Copy size={14}/></button>
+                   </div>
+                   <p className="text-brand-green">def <span className="text-brand-yellow">calculate_growth</span>(initial, rate):</p>
+                   <p className="ml-4 text-white">return initial * (1 + rate)</p>
+                   <p className="text-white mt-4">print(calculate_growth(100, 0.12))</p>
+                </div>
+                <div className="h-32 bg-[#111] border-2 border-[#333] rounded-md p-4 font-mono text-xs overflow-y-auto">
+                  <p className="text-muted font-bold mb-2 uppercase">Terminal Output</p>
+                  <p className="text-brand-green">&gt; 112.0</p>
+                  <p className="text-white opacity-50 mt-1">Process finished with exit code 0</p>
+                </div>
+                <div className="flex gap-4">
+                  <button className="flex-1 neo-button neo-button-blue">Run Script</button>
+                  <button className="neo-button neo-button-white text-black"><Terminal size={18}/></button>
+                </div>
               </div>
             )}
             
-            {activeModal === "Error Explainer" && (
-              <div className="space-y-4">
-                <textarea 
-                  className="w-full h-32 bg-[#111] border-2 border-[#333] text-white p-3 font-mono text-sm focus:border-brand-red outline-none rounded-md"
-                  placeholder="Paste your error trace here..."
-                ></textarea>
-                <button className="neo-button neo-button-red w-full">Explain Error</button>
+            {activeModal === "Explainer" && (
+              <div className="space-y-6">
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-muted uppercase tracking-widest">Error Trace or Code</label>
+                  <textarea 
+                    className="w-full h-32 bg-[#111] border-2 border-[#333] text-white p-4 font-mono text-sm focus:border-brand-red outline-none rounded-md"
+                    placeholder="Paste your code or error message here..."
+                  ></textarea>
+                </div>
+                
+                {explaining ? (
+                  <div className="p-4 bg-brand-blue/10 border-2 border-brand-blue rounded-md animate-pulse">
+                    <p className="text-sm font-bold flex items-center gap-2">
+                      <Bot size={18} className="text-brand-blue" />
+                      AI Mentor is analyzing your logic...
+                    </p>
+                  </div>
+                ) : (
+                  <button 
+                    onClick={() => {
+                      setExplaining(true);
+                      setTimeout(() => setExplaining(false), 2000);
+                    }}
+                    className="neo-button neo-button-red w-full flex items-center justify-center gap-2"
+                  >
+                    <Search size={18} /> Explain Logic
+                  </button>
+                )}
+
+                <div className="p-5 border-2 border-[#333] bg-[#0d0d0d] rounded-md">
+                   <h4 className="font-black text-brand-yellow mb-2 text-xs uppercase tracking-wider">Solution Hints</h4>
+                   <ul className="space-y-2 text-sm opacity-80">
+                      <li className="flex gap-2"><ChevronRight size={14} className="text-brand-blue shrink-0 mt-1"/> Check if 'initial' is initialized.</li>
+                      <li className="flex gap-2"><ChevronRight size={14} className="text-brand-blue shrink-0 mt-1"/> Ensure you are not dividing by zero.</li>
+                   </ul>
+                </div>
               </div>
             )}
 
-            {activeModal === "AI Mentor" && (
-              <div className="h-64 flex flex-col justify-end">
-                <div className="bg-[#111] p-3 rounded-md border-2 border-brand-blue self-start max-w-[80%] mb-4">
-                  <p className="text-sm font-bold">Hello! What coding concept can I help you with today?</p>
+            {activeModal === "Mentor" && (
+              <div className="flex flex-col h-[450px]">
+                <div className="flex-1 overflow-y-auto space-y-4 mb-4 pr-2 custom-scrollbar">
+                  <div className="bg-[#222] p-4 rounded-lg rounded-tl-none border-2 border-[#333] max-w-[85%]">
+                    <p className="text-sm font-bold">Hello {user?.displayName?.split(" ")[0] || "Explorer"}! I'm your AI coding mentor. How can I help you level up today?</p>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {["Explain Recursion", "Python Cheat Sheet", "Optimize my Code"].map(chip => (
+                      <button key={chip} className="px-3 py-1.5 bg-[#111] border-2 border-[#333] rounded-full text-[10px] font-black hover:border-brand-blue transition-colors">
+                        {chip}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-                <div className="flex gap-2">
-                  <input type="text" className="flex-1 bg-[#111] border-2 border-[#333] px-3 py-2 text-white" placeholder="Ask anything..." />
-                  <button className="neo-button neo-button-blue">Send</button>
+                <div className="flex gap-3 items-center p-2 bg-[#0a0a0a] border-2 border-[#333] rounded-xl shadow-[4px_4px_0px_#000]">
+                  <input 
+                    type="text" 
+                    value={chatInput}
+                    onChange={(e) => setChatInput(e.target.value)}
+                    className="flex-1 bg-transparent border-none px-3 py-2 text-white outline-none font-bold placeholder:opacity-30" 
+                    placeholder="Ask a coding question..." 
+                  />
+                  <button className="p-3 neo-card bg-brand-blue text-white hover:scale-110 transition-transform">
+                    <Send size={20} />
+                  </button>
                 </div>
+              </div>
+            )}
+
+            {activeModal === "Library" && (
+              <div className="space-y-6">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" size={18} />
+                  <input 
+                    type="text" 
+                    placeholder="Search docs, snippets, or concepts..."
+                    className="w-full bg-[#111] border-2 border-[#333] py-3 pl-10 pr-4 text-white rounded-md focus:border-brand-blue outline-none"
+                  />
+                </div>
+                <div className="grid grid-cols-1 gap-3">
+                  {[
+                    { title: "Python Standard Library", desc: "Built-in functions and modules", tag: "Python" },
+                    { title: "Modern JavaScript (ES6+)", desc: "Arrow functions, destructuring...", tag: "JS" },
+                    { title: "Algorithms Cheat Sheet", desc: "Sorting, Searching, and Trees", tag: "CS" }
+                  ].map((doc, i) => (
+                    <div key={i} className="p-4 bg-[#111] border-2 border-[#333] rounded-md hover:border-brand-yellow transition-all cursor-pointer group flex justify-between items-center">
+                      <div>
+                        <p className="font-black text-sm uppercase group-hover:text-brand-yellow">{doc.title}</p>
+                        <p className="text-xs text-muted font-bold">{doc.desc}</p>
+                      </div>
+                      <span className="text-[10px] font-black px-2 py-1 bg-[#222] rounded border border-[#333]">{doc.tag}</span>
+                    </div>
+                  ))}
+                </div>
+                <button className="w-full neo-button neo-button-white text-black flex items-center justify-center gap-2">
+                  View Full Library <ExternalLink size={16} />
+                </button>
               </div>
             )}
 
             {activeModal === "Stat Details" && modalData && (
-              <div>
-                <h3 className="text-2xl font-black text-brand-yellow mb-4">{modalData.title} Analytics</h3>
-                <p className="text-lg">Current Value: <span className="font-bold">{modalData.value}</span></p>
-                <div className="mt-8 h-32 bg-[#111] border-2 border-[#333] flex items-center justify-center">
-                  <p className="text-muted font-bold">[Detailed Graph Placeholder]</p>
+              <div className="space-y-8">
+                <div className="flex justify-between items-end">
+                  <div>
+                    <h3 className="text-3xl font-black text-brand-yellow uppercase italic tracking-tighter">{modalData.title}</h3>
+                    <p className="text-muted font-bold tracking-widest uppercase text-xs">Performance Overview</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-4xl font-black">{modalData.value}</p>
+                    <p className="text-xs font-black text-brand-green uppercase">+12% THIS WEEK</p>
+                  </div>
+                </div>
+
+                <div className="p-6 bg-[#0a0a0a] border-2 border-[#333] rounded-lg">
+                  <div className="flex items-end justify-between h-48 gap-2">
+                    {[40, 70, 45, 90, 65, 80, 50].map((height, i) => (
+                      <div key={i} className="flex-1 flex flex-col items-center gap-3 group">
+                        <div 
+                          className="w-full bg-brand-blue border-2 border-black shadow-[2px_2px_0px_#000] transition-all duration-500 group-hover:bg-brand-yellow group-hover:-translate-y-1"
+                          style={{ height: `${height}%` }}
+                        ></div>
+                        <span className="text-[10px] font-black opacity-40 uppercase">
+                          {['M', 'T', 'W', 'T', 'F', 'S', 'S'][i]}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="p-4 border-2 border-[#333] rounded-md bg-[#111]">
+                    <p className="text-[10px] font-black text-muted uppercase mb-1">Average Daily</p>
+                    <p className="text-xl font-black">24.5</p>
+                  </div>
+                  <div className="p-4 border-2 border-[#333] rounded-md bg-[#111]">
+                    <p className="text-[10px] font-black text-muted uppercase mb-1">Peak Performance</p>
+                    <p className="text-xl font-black text-brand-blue">90.0</p>
+                  </div>
                 </div>
               </div>
             )}
@@ -97,12 +291,43 @@ export default function ModalContainer() {
             {activeModal === "User Profile" && (
               <div className="space-y-6">
                 <div className="flex items-center gap-6 p-4 bg-[#111] border-2 border-[#333] rounded-md">
-                  <div className="w-20 h-20 bg-brand-blue rounded-full border-4 border-black flex items-center justify-center text-3xl font-black">
-                    U
+                  <div className="flex flex-col items-center gap-3">
+                    <div className="w-20 h-20 bg-brand-blue rounded-full border-4 border-black overflow-hidden flex items-center justify-center text-3xl font-black">
+                      {profilePic ? (
+                        <img src={profilePic} alt="Profile" className="w-full h-full object-cover" />
+                      ) : (
+                        user?.displayName?.charAt(0) || "U"
+                      )}
+                    </div>
+                    <div className="flex gap-2">
+                      <input 
+                        type="file" 
+                        ref={fileInputRef}
+                        onChange={handleFileChange}
+                        accept="image/*"
+                        className="hidden"
+                      />
+                      <button 
+                        onClick={() => fileInputRef.current?.click()}
+                        className="p-1.5 neo-card bg-brand-yellow text-black hover:-translate-y-0.5 transition-all"
+                        title="Upload"
+                      >
+                        <Upload size={14} />
+                      </button>
+                      {profilePic && (
+                        <button 
+                          onClick={() => updateProfilePic(null)}
+                          className="p-1.5 neo-card bg-brand-red text-white hover:-translate-y-0.5 transition-all"
+                          title="Remove"
+                        >
+                          <Trash2 size={14} />
+                        </button>
+                      )}
+                    </div>
                   </div>
                   <div>
-                    <h3 className="text-2xl font-black">User Explorer</h3>
-                    <p className="text-muted font-bold">explorer@example.com</p>
+                    <h3 className="text-2xl font-black">{user?.displayName || "User Explorer"}</h3>
+                    <p className="text-muted font-bold">{user?.email || "explorer@example.com"}</p>
                   </div>
                 </div>
                 
@@ -118,10 +343,13 @@ export default function ModalContainer() {
                 </div>
 
                 <div className="flex flex-col gap-2 pt-4">
-                  <button className="neo-button neo-button-white w-full text-left flex justify-between items-center">
-                    Account Settings <span className="text-xs">→</span>
-                  </button>
-                  <button className="neo-button neo-button-red w-full">
+                  <button 
+                    onClick={() => {
+                      logout();
+                      closeModal();
+                    }}
+                    className="neo-button neo-button-red w-full"
+                  >
                     Logout
                   </button>
                 </div>

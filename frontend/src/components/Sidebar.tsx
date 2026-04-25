@@ -4,14 +4,19 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LayoutDashboard, User, Terminal } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
+import { useDashboard } from "../context/DashboardContext";
 
 export default function Sidebar() {
   const pathname = usePathname();
+  const { xp, level } = useDashboard();
+
+  const nextLevelXP = 1000;
+  const currentLevelXP = xp % nextLevelXP;
+  const progressPercent = (currentLevelXP / nextLevelXP) * 100;
 
   const navItems = [
     { href: "/dashboard", icon: LayoutDashboard, label: "Dashboard", activeCard: "neo-card-blue", hoverBorder: "hover:border-brand-blue", iconColor: "text-brand-blue" },
     { href: "/playground", icon: Terminal, label: "Playground", activeCard: "neo-card-yellow", hoverBorder: "hover:border-brand-yellow", iconColor: "text-brand-yellow" },
-    { href: "/profile", icon: User, label: "Profile", activeCard: "neo-card-white", hoverBorder: "hover:border-border", iconColor: "text-foreground" },
   ];
 
   return (
@@ -47,11 +52,14 @@ export default function Sidebar() {
         <ThemeToggle />
         
         <div className="neo-card-dark p-5 flex flex-col gap-3">
-          <p className="font-black text-[10px] text-brand-yellow uppercase tracking-widest">Level: Explorer</p>
+          <p className="font-black text-[10px] text-brand-yellow uppercase tracking-widest">Level: {level}</p>
           <div className="w-full bg-background/50 h-3 border-2 border-border rounded-full overflow-hidden">
-            <div className="bg-brand-blue h-full w-[45%] transition-all duration-1000"></div>
+            <div 
+              className="bg-brand-blue h-full transition-all duration-1000" 
+              style={{ width: `${progressPercent}%` }}
+            ></div>
           </div>
-          <p className="text-[9px] font-black opacity-50 text-right uppercase tracking-widest">450 / 1000 XP</p>
+          <p className="text-[9px] font-black opacity-50 text-right uppercase tracking-widest">{xp} / {Math.ceil((xp + 1) / 1000) * 1000} XP</p>
         </div>
       </div>
     </aside>

@@ -5,19 +5,25 @@ const LEADERBOARD_DATA = [
   { rank: 2, name: "Sarah J.", xp: 1100, badge: "Master" },
   { rank: 3, name: "Mike T.", xp: 950, badge: "Diamond" },
   { rank: 4, name: "You", xp: 450, badge: "Explorer", isUser: true },
+  { rank: 5, name: "Emily R.", xp: 420, badge: "Explorer" },
+  { rank: 6, name: "David L.", xp: 380, badge: "Novice" },
+  { rank: 7, name: "Jessica W.", xp: 350, badge: "Novice" },
+  { rank: 8, name: "Kevin M.", xp: 310, badge: "Beginner" },
+  { rank: 9, name: "Sophie B.", xp: 280, badge: "Beginner" },
+  { rank: 10, name: "Tom H.", xp: 250, badge: "Beginner" },
 ];
 
 export default function Leaderboard() {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 max-h-[400px] overflow-y-auto overflow-x-auto pr-2 custom-scrollbar">
       {LEADERBOARD_DATA.map((user) => (
         <div 
           key={user.rank} 
-          className={`flex items-center justify-between p-4 border-2 border-border rounded-md transition-all hover:scale-[1.02] ${
+          className={`flex items-center justify-between p-4 border-2 border-border rounded-md transition-all hover:scale-[1.02] min-w-[280px] ${
             user.isUser ? "bg-brand-yellow text-black border-black shadow-[4px_4px_0px_#000]" : "bg-background/50"
           }`}
         >
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 shrink-0">
             <span className={`font-black text-lg w-6 flex justify-center ${user.rank === 1 ? 'text-brand-red text-2xl' : 'opacity-40'}`}>
               {user.rank}
             </span>
@@ -25,11 +31,11 @@ export default function Leaderboard() {
               {user.name.charAt(0)}
             </div>
             <div>
-              <p className="font-black uppercase tracking-tight text-sm">{user.name}</p>
-              <p className="text-[9px] font-black opacity-50 uppercase tracking-widest">{user.badge}</p>
+              <p className="font-black uppercase tracking-tight text-sm whitespace-nowrap">{user.name}</p>
+              <p className="text-[9px] font-black opacity-50 uppercase tracking-widest whitespace-nowrap">{user.badge}</p>
             </div>
           </div>
-          <div className="font-black text-right">
+          <div className="font-black text-right shrink-0 ml-4">
             {user.xp} <span className="text-[10px] opacity-60">XP</span>
           </div>
         </div>

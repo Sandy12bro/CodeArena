@@ -3,10 +3,12 @@
 import { Search, Bell, Sun, Moon, User } from "lucide-react";
 import { useDashboard } from "../../context/DashboardContext";
 import { useTheme } from "../../context/ThemeContext";
+import { useAuth } from "../../context/AuthContext";
 
 export default function TopNavbar() {
   const { searchQuery, setSearchQuery, openModal } = useDashboard();
   const { theme, toggleTheme } = useTheme();
+  const { profilePic } = useAuth();
 
   return (
     <div className="w-full flex items-center justify-between mb-8 pb-4 border-b-2 border-border">
@@ -39,8 +41,12 @@ export default function TopNavbar() {
           onClick={() => openModal("User Profile")}
           className="flex items-center gap-3 neo-card px-4 py-1.5 cursor-pointer hover:-translate-y-1 transition-all"
         >
-          <div className="w-8 h-8 bg-brand-blue border-2 border-black rounded-md flex items-center justify-center shadow-[2px_2px_0px_#000]">
-            <User size={16} className="text-white" />
+          <div className="w-8 h-8 bg-brand-blue border-2 border-black rounded-md overflow-hidden flex items-center justify-center shadow-[2px_2px_0px_#000]">
+            {profilePic ? (
+              <img src={profilePic} alt="P" className="w-full h-full object-cover" />
+            ) : (
+              <User size={16} className="text-white" />
+            )}
           </div>
           <span className="font-black text-xs uppercase tracking-widest leading-none">Profile</span>
         </div>

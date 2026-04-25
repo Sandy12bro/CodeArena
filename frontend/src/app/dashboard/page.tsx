@@ -13,7 +13,6 @@ import ProgressTracker from "../../components/dashboard/ProgressTracker";
 import ContinueLearning from "../../components/dashboard/ContinueLearning";
 import QuickActions from "../../components/dashboard/QuickActions";
 import DailyChallenge from "../../components/dashboard/DailyChallenge";
-import MentorSuggestions from "../../components/dashboard/MentorSuggestions";
 import ActivityFeed from "../../components/dashboard/ActivityFeed";
 import Leaderboard from "../../components/Leaderboard";
 
@@ -42,7 +41,6 @@ function DashboardContent() {
               <ContinueLearning />
               <QuickActions />
               <DailyChallenge />
-              <MentorSuggestions />
             </div>
             
             <div className="lg:col-span-1 flex flex-col gap-12">
@@ -69,9 +67,7 @@ function DashboardContent() {
 export default function Dashboard() {
   return (
     <ProtectedRoute>
-      <DashboardProvider>
-        <DashboardContent />
-      </DashboardProvider>
+      <DashboardContent />
     </ProtectedRoute>
   );
 }
