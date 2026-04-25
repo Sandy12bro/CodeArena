@@ -1,0 +1,53 @@
+{
+  "title": "Full Stack Developer Roadmap",
+  "levels": [
+    {
+      "id": "lvl-1",
+      "levelName": "Level 1: Foundations",
+      "skills": [
+        {
+          "id": "skl-1",
+          "name": "Programming Basics",
+          "topics": ["Variables & Data Types", "Control Flow", "Functions", "OOP Basics"]
+        },
+        {
+          "id": "skl-2",
+          "name": "Data Structures",
+          "topics": ["Arrays", "Linked Lists", "Stacks & Queues", "Hash Maps"]
+        }
+      ]
+    },
+    {
+      "id": "lvl-2",
+      "levelName": "Level 2: Frontend Mastery",
+      "skills": [
+        {
+          "id": "skl-3",
+          "name": "Web Core",
+          "topics": ["Semantic HTML", "CSS Flexbox & Grid", "DOM Manipulation"]
+        },
+        {
+          "id": "skl-4",
+          "name": "Modern UI Frameworks",
+          "topics": ["React Components", "State Management", "Tailwind CSS", "Next.js App Router"]
+        }
+      ]
+    },
+    {
+      "id": "lvl-3",
+      "levelName": "Level 3: Backend & Database",
+      "skills": [
+        {
+          "id": "skl-5",
+          "name": "Server Architecture",
+          "topics": ["Node.js & Express", "RESTful APIs", "Authentication (JWT/OAuth)"]
+        },
+        {
+          "id": "skl-6",
+          "name": "Database Management",
+          "topics": ["Relational DB (PostgreSQL)", "NoSQL (MongoDB)", "ORMs (Prisma)"]
+        }
+      ]
+    }
+  ]
+}

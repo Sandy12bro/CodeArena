@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "name": "code-arena",
+  "outputDirectory": "frontend/out",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/backend/server.js"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  }
+}

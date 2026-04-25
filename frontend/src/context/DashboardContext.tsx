@@ -1,0 +1,178 @@
+"use client";
+
+import React, { createContext, useContext, useState, useEffect } from "react";
+
+// Types
+export type Topic = { title: string; progress: number; color: string; locked: boolean };
+export type Activity = { text: string; time: string; icon: string; color: string };
+export type ToastMessage = { id: string; message: string; type: "success" | "info" | "error" };
+
+interface DashboardContextType {
+  xp: number;
+  level: string;
+  streak: number;
+  rank: number;
+  accuracy: number;
+  topics: Topic[];
+  searchQuery: string;
+  activities: Activity[];
+  activeModal: string | null;
+  modalData: any;
+  toasts: ToastMessage[];
+  theme: "dark" | "light";
+  
+  // Actions
+  addXP: (amount: number, reason: string) => void;
+  updateTopicProgress: (title: string, amount: number) => void;
+  setSearchQuery: (query: string) => void;
+  openModal: (name: string, data?: any) => void;
+  closeModal: () => void;
+  showToast: (message: string, type?: "success" | "info" | "error") => void;
+  toggleTheme: () => void;
+}
+
+const DashboardContext = createContext<DashboardContextType | undefined>(undefined);
+
+export function DashboardProvider({ children }: { children: React.ReactNode }) {
+  // Initialize state with default or localStorage values
+  const [xp, setXp] = useState(1250);
+  const [level, setLevel] = useState("Explorer");
+  const [streak, setStreak] = useState(5);
+  const [rank, setRank] = useState(42);
+  const [accuracy, setAccuracy] = useState(94);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [activeModal, setActiveModal] = useState<string | null>(null);
+  const [modalData, setModalData] = useState<any>(null);
+  const [toasts, setToasts] = useState<ToastMessage[]>([]);
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
+
+  const [topics, setTopics] = useState<Topic[]>([
+    { title: "Loops", progress: 80, color: "bg-brand-green", locked: false },
+    { title: "Functions", progress: 45, color: "bg-brand-yellow", locked: false },
+    { title: "Arrays", progress: 20, color: "bg-brand-blue", locked: false },
+    { title: "Recursion", progress: 0, color: "bg-[#333]", locked: true },
+  ]);
+
+  const [activities, setActivities] = useState<Activity[]>([
+    { text: "Completed Arrays lesson", time: "2 hours ago", icon: "CheckCircle", color: "text-brand-green" },
+    { text: "Earned Bug Hunter badge", time: "5 hours ago", icon: "Award", color: "text-brand-yellow" },
+  ]);
+
+  // Load from localStorage on mount
+  useEffect(() => {
+    const savedXP = localStorage.getItem("ca_xp");
+    if (savedXP) setXp(parseInt(savedXP));
+    
+    const savedTopics = localStorage.getItem("ca_topics");
+    if (savedTopics) setTopics(JSON.parse(savedTopics));
+
+    const savedActivities = localStorage.getItem("ca_activities");
+    if (savedActivities) setActivities(JSON.parse(savedActivities));
+
+    const savedTheme = localStorage.getItem("ca_theme") as "dark" | "light";
+    if (savedTheme) {
+      setTheme(savedTheme);
+      if (savedTheme === "light") document.body.classList.add("light-theme");
+    }
+  }, []);
+
+  // Save to localStorage on change
+  useEffect(() => {
+    localStorage.setItem("ca_xp", xp.toString());
+    localStorage.setItem("ca_topics", JSON.stringify(topics));
+    localStorage.setItem("ca_activities", JSON.stringify(activities));
+    localStorage.setItem("ca_theme", theme);
+  }, [xp, topics, activities, theme]);
+
+  const showToast = (message: string, type: "success" | "info" | "error" = "info") => {
+    const id = Math.random().toString(36).substr(2, 9);
+    setToasts((prev) => [...prev, { id, message, type }]);
+    setTimeout(() => {
+      setToasts((prev) => prev.filter((t) => t.id !== id));
+    }, 3000);
+  };
+
+  const addActivity = (text: string, icon: string, color: string) => {
+    setActivities((prev) => [{ text, time: "Just now", icon, color }, ...prev].slice(0, 10));
+  };
+
+  const addXP = (amount: number, reason: string) => {
+    setXp((prev) => {
+      const newXp = prev + amount;
+      if (Math.floor(newXp / 1000) > Math.floor(prev / 1000)) {
+        setLevel("Advanced Explorer");
+        showToast("Level Up! You are now an Advanced Explorer!", "success");
+      }
+      return newXp;
+    });
+    showToast(`+${amount} XP: ${reason}`, "success");
+    addActivity(`Gained ${amount} XP from ${reason}`, "Star", "text-brand-yellow");
+  };
+
+  const updateTopicProgress = (title: string, amount: number) => {
+    setTopics((prev) => {
+      const newTopics = prev.map((t) => {
+        if (t.title === title) {
+          const newProgress = Math.min(100, t.progress + amount);
+          if (newProgress === 100 && t.progress < 100) {
+            showToast(`Completed ${title}!`, "success");
+            addXP(100, `Completing ${title}`);
+          }
+          return { ...t, progress: newProgress };
+        }
+        return t;
+      });
+
+      // Unlock logic: If Arrays reaches 100%, unlock Recursion
+      const arrays = newTopics.find(t => t.title === "Arrays");
+      const recursion = newTopics.find(t => t.title === "Recursion");
+      if (arrays?.progress === 100 && recursion?.locked) {
+        showToast("New Topic Unlocked: Recursion!", "info");
+        return newTopics.map(t => t.title === "Recursion" ? { ...t, locked: false, color: "bg-brand-red" } : t);
+      }
+
+      return newTopics;
+    });
+  };
+
+  const openModal = (name: string, data?: any) => {
+    setModalData(data || null);
+    setActiveModal(name);
+  };
+
+  const closeModal = () => {
+    setActiveModal(null);
+    setModalData(null);
+  };
+
+  const toggleTheme = () => {
+    setTheme((prev) => {
+      const newTheme = prev === "dark" ? "light" : "dark";
+      if (newTheme === "light") {
+        document.body.classList.add("light-theme");
+      } else {
+        document.body.classList.remove("light-theme");
+      }
+      showToast(`Switched to ${newTheme} theme!`, "info");
+      return newTheme;
+    });
+  };
+
+  return (
+    <DashboardContext.Provider
+      value={{
+        xp, level, streak, rank, accuracy, topics, searchQuery, activities,
+        activeModal, modalData, toasts, theme,
+        addXP, updateTopicProgress, setSearchQuery, openModal, closeModal, showToast, toggleTheme
+      }}
+    >
+      {children}
+    </DashboardContext.Provider>
+  );
+}
+
+export const useDashboard = () => {
+  const context = useContext(DashboardContext);
+  if (!context) throw new Error("useDashboard must be used within DashboardProvider");
+  return context;
+};

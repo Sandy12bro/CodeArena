@@ -1,0 +1,14 @@
+{
+  "name": "codearena-root",
+  "version": "1.0.0",
+  "description": "Root configuration for CodeArena monorepo",
+  "private": true,
+  "scripts": {
+    "start": "cd backend && npm start",
+    "install-all": "npm install && cd backend && npm install && cd ../frontend && npm install",
+    "build": "echo 'Building...' && cd backend && npm install && cd ../frontend && npm install && npm run build"
+  },
+  "engines": {
+    "node": ">=20.9.0"
+  }
+}
