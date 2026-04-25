@@ -149,9 +149,10 @@ We love contributions! Here's how you can help:
 5. 🔃 **Open** a Pull Request
 
 ### 👥 Development Team
-- **Frontend** - UI/UX & User Experience
-- **Backend** - API & Database
-- **DevOps** - Deployment & Infrastructure
+- **Team Leader** - Sanskar Bhasme
+- **Frontend** - Prachi Jadhav & Bhakti Mandal
+- **Backend** - Sneha Jain
+- **DevOps** - Sanskar Bhasme
 
 ---
 
@@ -180,6 +181,22 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 ### 🎉 **Thanks for checking out CodeArena!** 🎉
 
 **Made with ❤️ by the CodeArena Team**
+
+---
+
+#### 👥 **Our Amazing Team**
+
+**👑 Team Leader: Sanskar Bhasme**
+- Project Management & DevOps
+
+**🎨 Frontend Team:**
+- Prachi Jadhav - UI/UX Design
+- Bhakti Mandal - Frontend Development
+
+**⚡ Backend Team:**
+- Sneha Jain - API Development & Database
+
+---
 
 [![GitHub followers](https://img.shields.io/github/followers/Sandy12bro?style=social)](https://github.com/Sandy12bro)
 [![Twitter](https://img.shields.io/twitter/follow/codearena_dev?style=social)](https://twitter.com/codearena_dev)
