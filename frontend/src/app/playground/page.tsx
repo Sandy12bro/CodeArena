@@ -94,7 +94,7 @@ export default function CodePlayground() {
         <div className="flex-1 flex flex-col min-w-0 relative">
           
           {/* Header */}
-          <header className="h-14 border-b-2 border-black bg-card px-6 flex items-center justify-between shadow-lg z-20">
+          <header className="h-14 border-b-2 border-border bg-card px-6 flex items-center justify-between shadow-[4px_4px_0px_var(--border)] z-20">
             <div className="flex items-center gap-6">
               <div className="flex items-center gap-3">
                 <select 
@@ -104,7 +104,7 @@ export default function CodePlayground() {
                 >
                   {LANGUAGES.map(lang => <option key={lang.id} value={lang.id}>{lang.name}</option>)}
                 </select>
-                <button onClick={handleRun} disabled={isRunning} className="bg-brand-yellow text-black px-6 py-1.5 rounded-md font-black text-xs uppercase tracking-widest hover:-translate-y-0.5 transition-all shadow-[3px_3px_0px_#000]">
+                <button onClick={handleRun} disabled={isRunning} className="bg-brand-yellow text-black px-6 py-1.5 rounded-md font-black text-xs uppercase tracking-widest hover:-translate-y-0.5 transition-all shadow-[3px_3px_0px_var(--border)]">
                   {isRunning ? "Running..." : "Run Code"}
                 </button>
                 <button 
@@ -112,7 +112,7 @@ export default function CodePlayground() {
                     if (trace.length === 0) await handleRun();
                     setShowVisualizer(true);
                   }}
-                  className="bg-brand-blue text-white px-4 py-1.5 rounded-md font-black text-xs uppercase tracking-widest hover:-translate-y-0.5 transition-all shadow-[3px_3px_0px_#000] flex items-center gap-2 border-2 border-black"
+                  className="bg-brand-blue text-foreground px-4 py-1.5 rounded-md font-black text-xs uppercase tracking-widest hover:-translate-y-0.5 transition-all shadow-[3px_3px_0px_var(--border)] flex items-center gap-2 border-2 border-border"
                 >
                   <Globe size={14} />
                   Visualize Execution
@@ -124,7 +124,7 @@ export default function CodePlayground() {
 
           <div className="flex-1 flex overflow-hidden">
             {/* Editor Area */}
-            <div className="flex-1 flex flex-col border-r-2 border-black bg-background">
+            <div className="flex-1 flex flex-col border-r-2 border-border bg-background">
               <Editor
                 height="100%"
                 language={language}

@@ -12,7 +12,7 @@ export default function ActivityFeed() {
 
   return (
     <div className="neo-card neo-card-dark p-6 h-full min-h-[300px]">
-      <h2 className="text-xl font-black uppercase mb-6 border-b-2 border-[#333] pb-2">
+      <h2 className="text-xl font-black uppercase mb-6 border-b-2 border-border pb-2">
         Recent Activity
       </h2>
       <div className="space-y-6">
@@ -25,9 +25,9 @@ export default function ActivityFeed() {
           return (
             <div key={i} className="flex gap-4 relative">
               {i !== activities.length - 1 && (
-                <div className="absolute left-[11px] top-8 bottom-[-24px] w-[2px] bg-[#333]"></div>
+                <div className="absolute left-[11px] top-8 bottom-[-24px] w-[2px] bg-border"></div>
               )}
-              <div className={`w-6 h-6 rounded-full bg-[#111] border-2 border-black flex items-center justify-center z-10 ${act.color}`}>
+              <div className={`w-6 h-6 rounded-full bg-card border-2 border-border flex items-center justify-center z-10 ${act.color}`}>
                 <Icon size={12} />
               </div>
               <div>

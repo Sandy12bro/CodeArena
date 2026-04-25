@@ -11,7 +11,7 @@ export default function Sidebar() {
   const navItems = [
     { href: "/dashboard", icon: LayoutDashboard, label: "Dashboard", activeCard: "neo-card-blue", hoverBorder: "hover:border-brand-blue", iconColor: "text-brand-blue" },
     { href: "/playground", icon: Terminal, label: "Playground", activeCard: "neo-card-yellow", hoverBorder: "hover:border-brand-yellow", iconColor: "text-brand-yellow" },
-    { href: "/profile", icon: User, label: "Profile", activeCard: "neo-card-white", hoverBorder: "hover:border-white", iconColor: "text-white" },
+    { href: "/profile", icon: User, label: "Profile", activeCard: "neo-card-white", hoverBorder: "hover:border-border", iconColor: "text-foreground" },
   ];
 
   return (

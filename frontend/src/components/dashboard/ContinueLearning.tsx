@@ -23,7 +23,7 @@ export default function ContinueLearning() {
                 <h3 className="font-black text-lg">{topic.title}</h3>
                 <span className="font-bold text-sm text-muted">{topic.progress}%</span>
               </div>
-              <div className="w-full h-3 bg-[#111] neo-border rounded-full overflow-hidden mb-6">
+              <div className="w-full h-3 bg-background neo-border rounded-full overflow-hidden mb-6">
                 <div 
                   className={`h-full ${topic.color} transition-all duration-500`} 
                   style={{ width: `${topic.progress}%` }}
@@ -33,7 +33,7 @@ export default function ContinueLearning() {
             <button 
               onClick={() => updateTopicProgress(topic.title, 20)}
               className={`neo-button w-full flex items-center justify-center gap-2 ${
-                topic.locked ? "bg-[#333] text-muted cursor-not-allowed border-[#555]" : 
+                topic.locked ? "bg-card text-muted cursor-not-allowed border-border" : 
                 topic.progress === 100 ? "bg-brand-green text-black" : "neo-button-white text-sm py-1.5"
               }`}
               disabled={topic.locked || topic.progress === 100}

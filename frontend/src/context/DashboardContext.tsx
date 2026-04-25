@@ -19,7 +19,6 @@ interface DashboardContextType {
   activeModal: string | null;
   modalData: any;
   toasts: ToastMessage[];
-  theme: "dark" | "light";
   
   // Actions
   addXP: (amount: number, reason: string) => void;
@@ -28,7 +27,6 @@ interface DashboardContextType {
   openModal: (name: string, data?: any) => void;
   closeModal: () => void;
   showToast: (message: string, type?: "success" | "info" | "error") => void;
-  toggleTheme: () => void;
 }
 
 const DashboardContext = createContext<DashboardContextType | undefined>(undefined);
@@ -44,7 +42,6 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
   const [activeModal, setActiveModal] = useState<string | null>(null);
   const [modalData, setModalData] = useState<any>(null);
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
-  const [theme, setTheme] = useState<"dark" | "light">("dark");
 
   const [topics, setTopics] = useState<Topic[]>([
     { title: "Loops", progress: 80, color: "bg-brand-green", locked: false },
@@ -68,12 +65,6 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
 
     const savedActivities = localStorage.getItem("ca_activities");
     if (savedActivities) setActivities(JSON.parse(savedActivities));
-
-    const savedTheme = localStorage.getItem("ca_theme") as "dark" | "light";
-    if (savedTheme) {
-      setTheme(savedTheme);
-      if (savedTheme === "light") document.body.classList.add("light-theme");
-    }
   }, []);
 
   // Save to localStorage on change
@@ -81,8 +72,7 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem("ca_xp", xp.toString());
     localStorage.setItem("ca_topics", JSON.stringify(topics));
     localStorage.setItem("ca_activities", JSON.stringify(activities));
-    localStorage.setItem("ca_theme", theme);
-  }, [xp, topics, activities, theme]);
+  }, [xp, topics, activities]);
 
   const showToast = (message: string, type: "success" | "info" | "error" = "info") => {
     const id = Math.random().toString(36).substr(2, 9);
@@ -145,25 +135,12 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
     setModalData(null);
   };
 
-  const toggleTheme = () => {
-    setTheme((prev) => {
-      const newTheme = prev === "dark" ? "light" : "dark";
-      if (newTheme === "light") {
-        document.body.classList.add("light-theme");
-      } else {
-        document.body.classList.remove("light-theme");
-      }
-      showToast(`Switched to ${newTheme} theme!`, "info");
-      return newTheme;
-    });
-  };
-
   return (
     <DashboardContext.Provider
       value={{
         xp, level, streak, rank, accuracy, topics, searchQuery, activities,
-        activeModal, modalData, toasts, theme,
-        addXP, updateTopicProgress, setSearchQuery, openModal, closeModal, showToast, toggleTheme
+        activeModal, modalData, toasts,
+        addXP, updateTopicProgress, setSearchQuery, openModal, closeModal, showToast
       }}
     >
       {children}

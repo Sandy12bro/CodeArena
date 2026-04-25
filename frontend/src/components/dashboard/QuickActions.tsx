@@ -7,12 +7,12 @@ export default function QuickActions() {
   const { openModal, searchQuery } = useDashboard();
 
   const actions = [
-    { title: "Visualizer", icon: Code, color: "text-brand-blue", bg: "hover:bg-brand-blue hover:text-white" },
-    { title: "Debug Playground", icon: Bug, color: "text-brand-red", bg: "hover:bg-brand-red hover:text-white" },
+    { title: "Visualizer", icon: Code, color: "text-brand-blue", bg: "hover:bg-brand-blue hover:text-foreground" },
+    { title: "Debug Playground", icon: Bug, color: "text-brand-red", bg: "hover:bg-brand-red hover:text-foreground" },
     { title: "Error Explainer", icon: AlertTriangle, color: "text-brand-yellow", bg: "hover:bg-brand-yellow hover:text-black" },
-    { title: "Sandbox", icon: Box, color: "text-brand-green", bg: "hover:bg-brand-green hover:text-white" },
-    { title: "AI Mentor", icon: Bot, color: "text-white", bg: "hover:bg-white hover:text-black" },
-    { title: "Concept Library", icon: BookOpen, color: "text-brand-blue", bg: "hover:bg-brand-blue hover:text-white" },
+    { title: "Sandbox", icon: Box, color: "text-brand-green", bg: "hover:bg-brand-green hover:text-foreground" },
+    { title: "AI Mentor", icon: Bot, color: "text-foreground", bg: "hover:bg-foreground hover:text-background" },
+    { title: "Concept Library", icon: BookOpen, color: "text-brand-blue", bg: "hover:bg-brand-blue hover:text-foreground" },
   ];
 
   const filtered = actions.filter(a => a.title.toLowerCase().includes(searchQuery.toLowerCase()));

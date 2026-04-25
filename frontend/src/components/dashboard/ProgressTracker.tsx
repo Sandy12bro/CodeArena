@@ -13,7 +13,7 @@ export default function ProgressTracker() {
             <p className="font-bold">Overall Course Progress</p>
             <p className="text-brand-blue font-black text-xl">48%</p>
           </div>
-          <div className="w-full h-6 bg-[#111] neo-border rounded-full overflow-hidden">
+          <div className="w-full h-6 bg-background neo-border rounded-full overflow-hidden">
             <div className="h-full bg-brand-blue w-[48%] relative">
               <div className="absolute inset-0 bg-white/20" style={{ backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 20px)" }}></div>
             </div>
@@ -31,7 +31,7 @@ export default function ProgressTracker() {
             {Array.from({ length: 7 }).map((_, i) => (
               <div 
                 key={`d-${i}`} 
-                className={`aspect-square neo-border rounded-sm ${i < 4 ? "bg-brand-green" : i === 4 ? "bg-brand-green/50" : "bg-[#111]"}`}
+                className={`aspect-square neo-border rounded-sm ${i < 4 ? "bg-brand-green" : i === 4 ? "bg-brand-green/50" : "bg-background"}`}
               ></div>
             ))}
           </div>

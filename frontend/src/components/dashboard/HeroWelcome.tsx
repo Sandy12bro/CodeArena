@@ -10,7 +10,7 @@ export default function HeroWelcome({ userName }: { userName: string }) {
   const nextTopic = topics.find(t => t.progress < 100 && !t.locked) || topics[0];
 
   return (
-    <div className="neo-card bg-brand-blue text-white p-8 relative overflow-hidden mb-8">
+    <div className="neo-card bg-brand-blue p-8 relative overflow-hidden mb-8">
       <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-10 rounded-full -translate-y-1/2 translate-x-1/4 blur-2xl"></div>
       
       <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
@@ -27,11 +27,11 @@ export default function HeroWelcome({ userName }: { userName: string }) {
         </div>
         
         <div className="flex gap-4">
-          <div className="neo-card bg-[#1a1a1a] p-4 text-center min-w-[100px] border-black">
+          <div className="neo-card bg-card p-4 text-center min-w-[100px] border-border">
             <p className="text-brand-yellow font-bold text-sm mb-1">LEVEL</p>
             <p className="text-2xl font-black">{level}</p>
           </div>
-          <div className="neo-card bg-[#1a1a1a] p-4 text-center min-w-[100px] border-black">
+          <div className="neo-card bg-card p-4 text-center min-w-[100px] border-border">
             <p className="text-brand-blue font-bold text-sm mb-1">XP</p>
             <p className="text-2xl font-black">{xp}</p>
           </div>
