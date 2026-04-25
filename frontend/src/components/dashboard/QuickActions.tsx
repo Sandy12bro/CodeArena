@@ -9,7 +9,7 @@ export default function QuickActions() {
   const actions = [
     { title: "Visualizer", icon: Code, color: "text-brand-blue", tint: "bg-brand-blue/5 hover:bg-brand-blue/15", accent: "border-brand-blue", shadow: "hover:shadow-[6px_6px_0px_#1d4ed8]" },
     { title: "Debugger", icon: Bug, color: "text-brand-red", tint: "bg-brand-red/5 hover:bg-brand-red/15", accent: "border-brand-red", shadow: "hover:shadow-[6px_6px_0px_#b91c1c]" },
-    { title: "Explainer", icon: AlertTriangle, color: "text-brand-yellow", tint: "bg-brand-yellow/5 hover:bg-brand-yellow/15", accent: "border-brand-yellow", shadow: "hover:shadow-[6px_6px_0px_#b45309]" },
+    { title: "Explainer", icon: AlertTriangle, color: "text-brand-yellow", tint: "bg-brand-yellow/5 hover:bg-brand-yellow/15", accent: "border-brand-yellow", shadow: "hover:shadow-[6px_6px_0px_#ca8a04]" },
     { title: "Sandbox", icon: Box, color: "text-brand-green", tint: "bg-brand-green/5 hover:bg-brand-green/15", accent: "border-brand-green", shadow: "hover:shadow-[6px_6px_0px_#047857]" },
     { title: "Mentor", icon: Bot, color: "text-brand-blue", tint: "bg-brand-blue/5 hover:bg-brand-blue/15", accent: "border-brand-blue", shadow: "hover:shadow-[6px_6px_0px_#1d4ed8]" },
     { title: "Library", icon: BookOpen, color: "text-brand-blue", tint: "bg-brand-blue/5 hover:bg-brand-blue/15", accent: "border-brand-blue", shadow: "hover:shadow-[6px_6px_0px_#1d4ed8]" },

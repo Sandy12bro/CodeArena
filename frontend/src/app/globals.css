@@ -7,7 +7,7 @@
   --border: #000000;
   --muted: #64748b;
   --primary: #2563eb;
-  --accent: #f59e0b;
+  --accent: #facc15;
   --danger: #ef4444;
 }
 
@@ -56,7 +56,7 @@
   }
   
   .neo-card-yellow {
-    @apply bg-brand-yellow text-black border-2 border-border shadow-[4px_4px_0px_#b45309] rounded-[8px];
+    @apply bg-brand-yellow text-black border-2 border-border shadow-[4px_4px_0px_#ca8a04] rounded-[8px];
   }
   
   .neo-card-blue {
@@ -81,7 +81,7 @@
   }
   
   .neo-button-yellow {
-    @apply bg-brand-yellow text-black border-2 border-border shadow-[3px_3px_0px_#b45309] rounded-md;
+    @apply bg-brand-yellow text-black border-2 border-border shadow-[3px_3px_0px_#ca8a04] rounded-md;
   }
   
   .neo-button-blue {

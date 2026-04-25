@@ -59,8 +59,8 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="neo-card bg-card border-brand-yellow p-6 lg:p-8 hover:-translate-y-2 hover:shadow-[6px_6px_0px_#b45309] transition-all flex flex-col justify-center h-full">
-            <div className="w-12 h-12 lg:w-14 lg:h-14 bg-brand-yellow border-2 border-border rounded-full flex items-center justify-center mb-4 shadow-[2px_2px_0px_#b45309]">
+          <div className="neo-card bg-card border-brand-yellow p-6 lg:p-8 hover:-translate-y-2 hover:shadow-[6px_6px_0px_#ca8a04] transition-all flex flex-col justify-center h-full">
+            <div className="w-12 h-12 lg:w-14 lg:h-14 bg-brand-yellow border-2 border-border rounded-full flex items-center justify-center mb-4 shadow-[2px_2px_0px_#ca8a04]">
               <Bug className="text-black" size={24} />
             </div>
             <h2 className="text-xl lg:text-2xl font-black text-foreground uppercase tracking-widest mb-3">Debug Playground</h2>
