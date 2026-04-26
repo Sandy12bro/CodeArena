@@ -4,7 +4,7 @@ import { Play } from "lucide-react";
 import { useDashboard } from "../../context/DashboardContext";
 
 export default function ContinueLearning() {
-  const { topics, updateTopicProgress, searchQuery } = useDashboard();
+  const { topics, updateTopicProgress, searchQuery, openModal } = useDashboard();
 
   // Filter based on global search
   const filteredTopics = topics.filter(t => t.title.toLowerCase().includes(searchQuery.toLowerCase()));

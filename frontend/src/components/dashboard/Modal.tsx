@@ -5,7 +5,7 @@ import { useDashboard } from "../../context/DashboardContext";
 import { 
   X, Upload, Trash2, Play, Square, Search, 
   MessageSquare, Send, Copy, ExternalLink, 
-  ChevronRight, Bug, BookOpen, Terminal, Bot
+  ChevronRight, Bug, BookOpen, Terminal, Bot, CheckCircle
 } from "lucide-react";
 import React, { useRef, useState } from "react";
 
