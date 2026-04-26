@@ -1,26 +1,28 @@
 import { Trophy } from "lucide-react";
 import { useDashboard } from "../context/DashboardContext";
+import { useAuth } from "../context/AuthContext";
 
 const LEADERBOARD_DATA = [
-  { rank: 1, name: "Alex Chen", xp: 1250, badge: "Grandmaster" },
-  { rank: 2, name: "Sarah J.", xp: 1100, badge: "Master" },
-  { rank: 3, name: "Mike T.", xp: 950, badge: "Diamond" },
+  { rank: 1, name: "Alex Chen", xp: 1250, badge: "Grandmaster", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Alex" },
+  { rank: 2, name: "Sarah J.", xp: 1100, badge: "Master", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah" },
+  { rank: 3, name: "Mike T.", xp: 950, badge: "Diamond", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Mike" },
   { rank: 4, name: "You", xp: 450, badge: "Explorer", isUser: true },
-  { rank: 5, name: "Emily R.", xp: 420, badge: "Explorer" },
-  { rank: 6, name: "David L.", xp: 380, badge: "Novice" },
-  { rank: 7, name: "Jessica W.", xp: 350, badge: "Novice" },
-  { rank: 8, name: "Kevin M.", xp: 310, badge: "Beginner" },
-  { rank: 9, name: "Sophie B.", xp: 280, badge: "Beginner" },
-  { rank: 10, name: "Tom H.", xp: 250, badge: "Beginner" },
+  { rank: 5, name: "Emily R.", xp: 420, badge: "Explorer", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Emily" },
+  { rank: 6, name: "David L.", xp: 380, badge: "Novice", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=David" },
+  { rank: 7, name: "Jessica W.", xp: 350, badge: "Novice", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Jessica" },
+  { rank: 8, name: "Kevin M.", xp: 310, badge: "Beginner", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Kevin" },
+  { rank: 9, name: "Sophie B.", xp: 280, badge: "Beginner", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sophie" },
+  { rank: 10, name: "Tom H.", xp: 250, badge: "Beginner", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Tom" },
 ];
 
 export default function Leaderboard() {
   const { searchQuery, xp, level: userLevel } = useDashboard();
+  const { profilePic } = useAuth();
   
   // Combine user data with dummy data and sort by XP
   const rawData = [
     ...LEADERBOARD_DATA.filter(u => !u.isUser),
-    { rank: 0, name: "You", xp: xp, badge: userLevel, isUser: true }
+    { rank: 0, name: "You", xp: xp, badge: userLevel, isUser: true, avatar: profilePic }
   ];
 
   // Sort and assign ranks
@@ -50,8 +52,12 @@ export default function Leaderboard() {
               <span className={`font-black text-lg w-6 flex justify-center ${user.rank === 1 ? 'text-brand-red text-2xl' : 'opacity-40'}`}>
                 {user.rank}
               </span>
-              <div className="w-10 h-10 rounded-md border-2 border-border bg-card flex justify-center items-center font-black text-xs">
-                {user.name.charAt(0)}
+              <div className="w-10 h-10 rounded-md border-2 border-black overflow-hidden bg-card flex justify-center items-center font-black text-xs">
+                {user.avatar ? (
+                  <img src={user.avatar} alt={user.name} className="w-full h-full object-cover" />
+                ) : (
+                  user.name.charAt(0)
+                )}
               </div>
               <div>
                 <p className="font-black uppercase tracking-tight text-sm whitespace-nowrap">{user.name}</p>
