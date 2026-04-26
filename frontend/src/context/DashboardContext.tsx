@@ -122,7 +122,14 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
     if (savedXP) setXp(parseInt(savedXP));
     
     const savedTopics = localStorage.getItem("ca_topics");
-    if (savedTopics) setTopics(JSON.parse(savedTopics));
+    if (savedTopics) {
+      const parsedTopics = JSON.parse(savedTopics);
+      // Merge saved progress with default topics to ensure 'lessons' field exists
+      setTopics(prev => prev.map(defaultTopic => {
+        const savedTopic = parsedTopics.find((t: any) => t.title === defaultTopic.title);
+        return savedTopic ? { ...defaultTopic, ...savedTopic } : defaultTopic;
+      }));
+    }
 
     const savedActivities = localStorage.getItem("ca_activities");
     if (savedActivities) setActivities(JSON.parse(savedActivities));

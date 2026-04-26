@@ -186,7 +186,7 @@ export default function ModalContainer() {
                 </div>
 
                 <div className="space-y-3">
-                  {modalData.lessons.map((lesson: any, i: number) => (
+                  {modalData.lessons?.map((lesson: any, i: number) => (
                     <div key={lesson.id} className={`p-5 border-2 rounded-md transition-all ${lesson.completed ? 'bg-brand-green/10 border-brand-green opacity-80 shadow-[4px_4px_0px_rgba(34,197,94,0.2)]' : 'bg-[#111] border-[#333] hover:border-brand-blue group'}`}>
                       <div className="flex justify-between items-start mb-2">
                         <div className="flex items-center gap-3">
