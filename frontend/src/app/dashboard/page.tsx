@@ -14,6 +14,7 @@ import QuickActions from "../../components/dashboard/QuickActions";
 import DailyChallenge from "../../components/dashboard/DailyChallenge";
 import ActivityFeed from "../../components/dashboard/ActivityFeed";
 import Leaderboard from "../../components/Leaderboard";
+import FeedbackSection from "../../components/dashboard/FeedbackSection";
 
 // Modals and Toasts
 import ToastContainer from "../../components/dashboard/Toast";
@@ -52,6 +53,8 @@ function DashboardContent() {
               </div>
             </div>
           </div>
+
+          <FeedbackSection />
         </div>
       </main>
 
