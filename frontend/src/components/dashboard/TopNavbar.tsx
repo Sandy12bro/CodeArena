@@ -36,13 +36,17 @@ export default function TopNavbar() {
       <nav className="flex items-center gap-2 mr-auto">
         {navItems.map((item) => {
           const isActive = pathname === item.href;
+          const activeBg = item.label === "Dashboard" ? "bg-brand-blue" : "bg-brand-yellow";
+          const activeText = item.label === "Dashboard" ? "text-white" : "text-black";
+          const activeShadow = item.label === "Dashboard" ? "shadow-[4px_4px_0px_rgba(59,130,246,0.5)]" : "shadow-[4px_4px_0px_rgba(250,204,21,0.5)]";
+
           return (
             <Link 
               key={item.href}
               href={item.href} 
               className={`flex items-center gap-2 px-4 py-2 neo-card transition-all hover:-translate-y-1 ${
                 isActive 
-                  ? `bg-foreground text-background border-primary scale-105` 
+                  ? `${activeBg} ${activeText} border-black scale-105 ${activeShadow}` 
                   : `bg-card border-border opacity-70 hover:opacity-100`
               }`}
             >
