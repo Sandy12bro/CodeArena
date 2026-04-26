@@ -24,18 +24,24 @@ export default function QuickActions() {
         Quick Actions
       </h2>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-        {filtered.map((action, i) => (
-          <div 
-            key={i} 
-            onClick={() => openModal(action.title)}
-            className={`neo-card ${action.tint} ${action.accent} p-6 flex flex-col items-center justify-center gap-4 cursor-pointer transition-all duration-200 hover:-translate-y-2 ${action.shadow} group`}
-          >
-            <div className="p-3 bg-card border-2 border-border rounded-md group-hover:rotate-6 transition-transform shadow-[2px_2px_0px_#000]">
-              <action.icon size={28} className={action.color} />
+        {filtered.length > 0 ? (
+          filtered.map((action, i) => (
+            <div 
+              key={i} 
+              onClick={() => openModal(action.title)}
+              className={`neo-card ${action.tint} ${action.accent} p-6 flex flex-col items-center justify-center gap-4 cursor-pointer transition-all duration-200 hover:-translate-y-2 ${action.shadow} group`}
+            >
+              <div className="p-3 bg-card border-2 border-border rounded-md group-hover:rotate-6 transition-transform shadow-[2px_2px_0px_#000]">
+                <action.icon size={28} className={action.color} />
+              </div>
+              <span className="font-black text-[10px] uppercase tracking-[0.2em] text-center opacity-70 group-hover:opacity-100">{action.title}</span>
             </div>
-            <span className="font-black text-[10px] uppercase tracking-[0.2em] text-center opacity-70 group-hover:opacity-100">{action.title}</span>
+          ))
+        ) : (
+          <div className="col-span-full py-10 neo-card bg-muted/5 border-dashed flex flex-col items-center justify-center opacity-50">
+            <p className="font-black uppercase tracking-widest text-[10px]">No actions matching "{searchQuery}"</p>
           </div>
-        ))}
+        )}
       </div>
     </div>
   );

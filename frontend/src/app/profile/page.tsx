@@ -2,7 +2,7 @@
 
 import React, { useRef } from "react";
 import ProtectedRoute from "../../components/ProtectedRoute";
-import Sidebar from "../../components/Sidebar";
+import TopNavbar from "../../components/dashboard/TopNavbar";
 import { useAuth } from "../../context/AuthContext";
 import { User, Upload, Trash2 } from "lucide-react";
 
@@ -37,10 +37,11 @@ export default function ProfilePage() {
 
   return (
     <ProtectedRoute>
-      <div className="flex min-h-screen bg-background">
-        <Sidebar />
-        <main className="flex-1 p-8 overflow-y-auto">
-          <div className="max-w-4xl mx-auto space-y-8">
+      <div className="min-h-screen bg-background text-foreground font-sans transition-colors duration-500 overflow-x-hidden">
+        <main className="w-full p-4 md:p-10">
+          <div className="max-w-7xl mx-auto relative content-animate">
+            <TopNavbar />
+            <div className="max-w-4xl mx-auto space-y-8">
             <header className="mb-8 border-b-2 border-border pb-6">
               <h1 className="text-4xl font-black uppercase tracking-widest text-foreground drop-shadow-[2px_2px_0px_#EF4444]">
                 YOUR PROFILE
@@ -121,8 +122,9 @@ export default function ProfilePage() {
               </div>
             </div>
           </div>
-        </main>
-      </div>
+        </div>
+      </main>
+    </div>
     </ProtectedRoute>
   );
 }
