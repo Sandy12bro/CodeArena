@@ -4,10 +4,15 @@ import { Flame } from "lucide-react";
 import { useDashboard } from "../../context/DashboardContext";
 
 export default function HeroWelcome({ userName }: { userName: string }) {
-  const { xp, level, streak, topics } = useDashboard();
+  const { xp, level, streak, topics, lastActiveTopic } = useDashboard();
   
-  // Find the first unfinished topic to recommend
-  const nextTopic = topics.find(t => t.progress < 100 && !t.locked) || topics[0];
+  // Find the last active topic
+  const currentTopic = topics.find(t => t.title === lastActiveTopic) || topics[0];
+  
+  // Calculate average progress of unlocked topics
+  const unlockedTopics = topics.filter(t => !t.locked);
+  const totalProgress = unlockedTopics.reduce((acc, t) => acc + t.progress, 0);
+  const avgProgress = Math.round(totalProgress / unlockedTopics.length);
 
   return (
     <div className="p-8 relative overflow-hidden mb-10 rounded-[8px] border-2 border-black shadow-[6px_6px_0px_#000] transition-all bg-brand-blue">
@@ -23,18 +28,18 @@ export default function HeroWelcome({ userName }: { userName: string }) {
             Level up your skills today.
           </p>
           <a href="#continue-learning" className="neo-button neo-button-yellow text-lg px-10 py-4 inline-block hover:shadow-[4px_4px_0px_#000]">
-            Continue {nextTopic.title}
+            Continue {currentTopic.title}
           </a>
         </div>
         
         <div className="flex gap-4 flex-wrap">
-          <div className="neo-card p-5 text-center min-w-[120px]">
-            <p className="opacity-60 font-black text-[10px] mb-1 uppercase tracking-widest">Global Rank</p>
-            <p className="text-4xl font-black">#{level}</p>
+          <div className="neo-card p-5 text-center min-w-[120px] bg-brand-green border-black">
+            <p className="text-black font-black text-[10px] mb-1 uppercase tracking-widest">Learning Process</p>
+            <p className="text-4xl font-black text-black">{avgProgress}%</p>
           </div>
-          <div className="neo-card-yellow p-5 text-center min-w-[120px]">
-            <p className="text-black font-black text-[10px] mb-1 uppercase tracking-widest">Total XP</p>
-            <p className="text-4xl font-black text-black">{xp}</p>
+          <div className="neo-card p-5 text-center min-w-[120px]">
+            <p className="opacity-60 font-black text-[10px] mb-1 uppercase tracking-widest">Total XP</p>
+            <p className="text-4xl font-black">{xp}</p>
           </div>
           <div className="neo-card-red p-5 text-center min-w-[120px] flex flex-col items-center">
             <p className="text-white font-black text-[10px] mb-1 uppercase tracking-widest flex items-center gap-1">

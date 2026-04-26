@@ -19,6 +19,7 @@ interface DashboardContextType {
   activeModal: string | null;
   modalData: any;
   toasts: ToastMessage[];
+  lastActiveTopic: string;
   
   // Actions
   dailyTaskActive: boolean;
@@ -47,6 +48,7 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
   const [activeModal, setActiveModal] = useState<string | null>(null);
   const [modalData, setModalData] = useState<any>(null);
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
+  const [lastActiveTopic, setLastActiveTopic] = useState<string>("Loops");
 
   // Daily Task State
   const [dailyTaskActive, setDailyTaskActive] = useState(false);
@@ -77,6 +79,9 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
     const savedActivities = localStorage.getItem("ca_activities");
     if (savedActivities) setActivities(JSON.parse(savedActivities));
 
+    const savedLastTopic = localStorage.getItem("ca_last_topic");
+    if (savedLastTopic) setLastActiveTopic(savedLastTopic);
+
     // Daily Task Recovery
     const savedActive = localStorage.getItem("ca_daily_active") === "true";
     const savedCompleted = localStorage.getItem("ca_daily_completed") === "true";
@@ -102,6 +107,7 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem("ca_xp", xp.toString());
     localStorage.setItem("ca_topics", JSON.stringify(topics));
     localStorage.setItem("ca_activities", JSON.stringify(activities));
+    localStorage.setItem("ca_last_topic", lastActiveTopic);
     
     localStorage.setItem("ca_daily_active", dailyTaskActive.toString());
     localStorage.setItem("ca_daily_completed", dailyTaskCompleted.toString());
@@ -158,6 +164,7 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
   };
 
   const updateTopicProgress = (title: string, amount: number) => {
+    setLastActiveTopic(title);
     setTopics((prev) => {
       const newTopics = prev.map((t) => {
         if (t.title === title) {
@@ -200,6 +207,7 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
         activeModal, modalData, toasts,
         dailyTaskActive, dailyTaskCompleted, dailyTaskTimeLeft,
         startDailyTask, completeDailyTask,
+        lastActiveTopic,
         addXP, updateTopicProgress, setSearchQuery, openModal, closeModal, showToast
       }}
     >
