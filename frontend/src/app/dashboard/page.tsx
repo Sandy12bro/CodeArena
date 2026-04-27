@@ -18,6 +18,7 @@ import DailyChallenge from "../../components/dashboard/DailyChallenge";
 import MentorSuggestions from "../../components/dashboard/MentorSuggestions";
 import ActivityFeed from "../../components/dashboard/ActivityFeed";
 import Leaderboard from "../../components/Leaderboard";
+import Sidebar from "../../components/Sidebar";
 import FeedbackSection from "../../components/dashboard/FeedbackSection";
 
 // Overlays
@@ -78,7 +79,7 @@ function DashboardContent() {
               </section>
             </div>
 
-            {/* Right Column - Social, Competitive & Feedback */}
+            {/* Right Column - Social & Competitive */}
             <div className="lg:col-span-1 space-y-10">
               <section id="activity">
                 <ActivityFeed />
@@ -90,11 +91,13 @@ function DashboardContent() {
                 </h2>
                 <Leaderboard />
               </section>
-              <section id="feedback">
-                <FeedbackSection />
-              </section>
             </div>
           </div>
+
+          {/* Full Width Feedback Area - Acquires the whole bottom area */}
+          <section id="feedback" className="w-full mt-10">
+            <FeedbackSection />
+          </section>
 
           {/* Footer Area */}
           <footer className="py-12 border-t-2 border-border mt-20 opacity-40">
