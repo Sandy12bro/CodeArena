@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import Sidebar from "../../components/Sidebar";
+import TopNavbar from "../../components/dashboard/TopNavbar";
 import { useAuth } from "../../context/AuthContext";
 import roadmapData from "../../data/roadmap.json";
 import { Map, ChevronRight, CheckCircle2 } from "lucide-react";
@@ -22,10 +22,11 @@ export default function Roadmap() {
   }
 
   return (
-    <div className="flex min-h-screen bg-background">
-      <Sidebar />
-      <main className="flex-1 p-8 overflow-y-auto">
-        <div className="max-w-5xl mx-auto space-y-8">
+    <div className="min-h-screen bg-background text-foreground font-sans transition-colors duration-500 overflow-x-hidden">
+      <main className="w-full p-4 md:p-10">
+        <div className="max-w-7xl mx-auto relative content-animate">
+          <TopNavbar />
+          <div className="max-w-5xl mx-auto space-y-8">
           
           <header className="mb-8 border-b-2 border-border pb-6 flex items-center gap-4">
             <div className="bg-brand-yellow neo-border p-3 text-black">
@@ -76,7 +77,8 @@ export default function Roadmap() {
           </div>
 
         </div>
-      </main>
-    </div>
+      </div>
+    </main>
+  </div>
   );
 }

@@ -108,6 +108,21 @@
   100% {
     background-position: 2rem 2rem;
   }
+}.custom-scrollbar::-webkit-scrollbar {
+  width: 10px;
 }
 
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+  border-left: 2px solid var(--border);
+}
 
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border: 2px solid var(--border);
+  border-radius: 0px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}

@@ -6,9 +6,10 @@ import { Play, LogOut, User as UserIcon, Globe, AlertCircle, CheckCircle2, Chevr
 import { useAuth } from "../../context/AuthContext";
 import { useRouter } from "next/navigation";
 import ProtectedRoute from "../../components/ProtectedRoute";
-import Sidebar from "../../components/Sidebar";
+import TopNavbar from "../../components/dashboard/TopNavbar";
 import ExecutionVisualizer from "../../components/ExecutionVisualizer";
 import { useTheme } from "../../context/ThemeContext";
+import { DashboardProvider } from "../../context/DashboardContext";
 
 export default function CodePlayground() {
   const { theme } = useTheme();
@@ -88,13 +89,13 @@ export default function CodePlayground() {
 
   return (
     <ProtectedRoute>
-      <div className="flex h-screen bg-background text-foreground overflow-hidden font-sans">
-        <Sidebar />
-        
-        <div className="flex-1 flex flex-col min-w-0 relative">
+      <div className="min-h-screen bg-background text-foreground font-sans overflow-x-hidden">
+        <div className="max-w-7xl mx-auto p-4 md:p-10 flex flex-col h-screen">
+          <TopNavbar />
           
-          {/* Header */}
-          <header className="h-14 border-b-2 border-border bg-card px-6 flex items-center justify-between shadow-[4px_4px_0px_var(--border)] z-20">
+          <div className="flex-1 flex flex-col min-w-0 relative bg-card border-2 border-border rounded-xl overflow-hidden shadow-[8px_8px_0px_#000] mb-8">
+            {/* Header */}
+            <header className="h-14 border-b-2 border-border bg-background px-6 flex items-center justify-between z-20">
             <div className="flex items-center gap-6">
               <div className="flex items-center gap-3">
                 <select 
@@ -167,6 +168,7 @@ export default function CodePlayground() {
             />
           )}
           
+          </div>
         </div>
       </div>
     </ProtectedRoute>

@@ -1,10 +1,9 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import ProtectedRoute from "../../components/ProtectedRoute";
-import Sidebar from "../../components/Sidebar";
 import { useAuth } from "../../context/AuthContext";
 import { DashboardProvider } from "../../context/DashboardContext";
 
@@ -19,6 +18,8 @@ import DailyChallenge from "../../components/dashboard/DailyChallenge";
 import MentorSuggestions from "../../components/dashboard/MentorSuggestions";
 import ActivityFeed from "../../components/dashboard/ActivityFeed";
 import Leaderboard from "../../components/Leaderboard";
+import Sidebar from "../../components/Sidebar";
+import FeedbackSection from "../../components/dashboard/FeedbackSection";
 
 // Modals and Toasts
 import ToastContainer from "../../components/dashboard/Toast";
@@ -81,15 +82,20 @@ function DashboardContent() {
       )
     },
     { 
-      id: "timeline", 
-      title: "Activity",
+      id: "social", 
+      title: "Social",
       content: (
-        <div className="max-w-6xl w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10">
-          <ActivityFeed />
-          <div className="neo-card p-7">
+        <div className="max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+          <div className="lg:col-span-1">
+            <ActivityFeed />
+          </div>
+          <div className="lg:col-span-1">
+            <FeedbackSection />
+          </div>
+          <div className="lg:col-span-1 neo-card p-7 h-full">
             <h2 className="text-xl font-black uppercase mb-6 flex items-center gap-2">
               <span className="w-2 h-8 bg-brand-blue inline-block"></span>
-              Leaderboard
+              Top Performers
             </h2>
             <Leaderboard />
           </div>
@@ -157,15 +163,9 @@ function DashboardContent() {
               className="min-w-full h-full snap-start flex flex-col justify-center px-10 pt-32 pb-24 shrink-0 transition-opacity duration-300"
               style={{ opacity: activeSection === idx ? 1 : 0.4 }}
             >
-              <motion.div
-                initial={{ opacity: 0, x: 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
-                viewport={{ once: false, amount: 0.3 }}
-                className="w-full flex-1 flex flex-col justify-center"
-              >
+              <div className="w-full flex-1 flex flex-col justify-center">
                 {section.content}
-              </motion.div>
+              </div>
             </section>
           ))}
         </div>
@@ -206,6 +206,7 @@ function DashboardContent() {
         </div>
       </main>
 
+      {/* Global Interactive Overlays */}
       <ToastContainer />
       <ModalContainer />
     </div>

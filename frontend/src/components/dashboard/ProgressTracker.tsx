@@ -1,4 +1,13 @@
+import { useDashboard } from "../../context/DashboardContext";
+
 export default function ProgressTracker() {
+  const { topics } = useDashboard();
+  
+  // Calculate overall progress across all topics
+  const totalTopics = topics.length;
+  const totalProgress = topics.reduce((acc, t) => acc + t.progress, 0);
+  const overallPathProgress = Math.round(totalProgress / totalTopics);
+
   return (
     <div className="neo-card p-6">
       <h2 className="text-xl font-black uppercase mb-6 flex items-center gap-2">
@@ -11,14 +20,22 @@ export default function ProgressTracker() {
         <div className="space-y-4">
           <div className="flex justify-between items-end">
             <p className="font-black text-xs uppercase tracking-widest opacity-60">Overall Path Progress</p>
-            <p className="text-brand-blue font-black text-2xl">48%</p>
+            <p className="text-brand-blue font-black text-2xl">{overallPathProgress}%</p>
           </div>
           <div className="w-full h-5 bg-background border-2 border-border rounded-full overflow-hidden">
-            <div className="h-full bg-brand-blue w-[48%] relative">
+            <div 
+              className="h-full bg-brand-blue transition-all duration-1000 ease-out relative" 
+              style={{ width: `${overallPathProgress}%` }}
+            >
               <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 20px)" }}></div>
             </div>
           </div>
-          <p className="text-[10px] opacity-50 font-black uppercase tracking-widest text-right">Keep going! You are almost halfway there.</p>
+          <p className="text-[10px] opacity-50 font-black uppercase tracking-widest text-right">
+            {overallPathProgress === 100 ? "Mastery Achieved! You've completed all topics." : 
+             overallPathProgress > 75 ? "Almost there! Keep pushing to the finish line." :
+             overallPathProgress > 50 ? "Over halfway! You're making great progress." :
+             "The journey has begun! Every lesson counts."}
+          </p>
         </div>
 
         {/* Weekly Heatmap Placeholder */}

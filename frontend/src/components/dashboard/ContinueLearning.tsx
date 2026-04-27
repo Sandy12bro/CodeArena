@@ -4,7 +4,7 @@ import { Play } from "lucide-react";
 import { useDashboard } from "../../context/DashboardContext";
 
 export default function ContinueLearning() {
-  const { topics, updateTopicProgress, searchQuery } = useDashboard();
+  const { topics, updateTopicProgress, searchQuery, openModal } = useDashboard();
 
   // Filter based on global search
   const filteredTopics = topics.filter(t => t.title.toLowerCase().includes(searchQuery.toLowerCase()));
@@ -26,33 +26,52 @@ export default function ContinueLearning() {
         Continue Learning
       </h2>
       <div className="flex gap-8 overflow-x-auto pb-6 no-scrollbar touch-pan-x">
-        {filteredTopics.map((topic, i) => (
-          <div key={i} className={`neo-card min-w-[340px] md:min-w-[360px] p-7 flex flex-col justify-between hover:bg-black/5 dark:hover:bg-white/5 hover:-translate-y-2 transition-all duration-300 ${getTopicBorder(topic.title)} ${topic.locked ? "opacity-50 grayscale" : "cursor-pointer"}`}>
-            <div>
-              <div className="flex justify-between items-center mb-6">
-                <h3 className="font-black text-xl uppercase tracking-tighter">{topic.title}</h3>
-                <span className="font-black text-sm px-3 py-1 bg-foreground text-background rounded-md">{topic.progress}%</span>
+        {filteredTopics.length > 0 ? (
+          filteredTopics.map((topic, i) => (
+            <div key={i} className={`neo-card min-w-[340px] md:min-w-[360px] p-7 flex flex-col justify-between hover:bg-black/5 dark:hover:bg-white/5 hover:-translate-y-2 transition-all duration-300 ${getTopicBorder(topic.title)} ${topic.locked ? "opacity-50 grayscale" : "cursor-pointer"}`}>
+              <div>
+                <div className="flex justify-between items-center mb-6">
+                  <h3 className="font-black text-xl uppercase tracking-tighter">{topic.title}</h3>
+                  <span className="font-black text-sm px-3 py-1 bg-foreground text-background rounded-md">{topic.progress}%</span>
+                </div>
+                <div className="w-full h-5 bg-muted/20 border-2 border-border rounded-full overflow-hidden mb-8 shadow-inner">
+                  <div 
+                    className={`h-full ${topic.color} transition-all duration-700 ease-out`} 
+                    style={{ width: `${topic.progress}%` }}
+                  ></div>
+                </div>
               </div>
-              <div className="w-full h-5 bg-muted/20 border-2 border-border rounded-full overflow-hidden mb-8 shadow-inner">
-                <div 
-                  className={`h-full ${topic.color} transition-all duration-700 ease-out`} 
-                  style={{ width: `${topic.progress}%` }}
-                ></div>
+              <div className="flex flex-col gap-3">
+                <button 
+                  onClick={() => !topic.locked && openModal("Learning Module", topic)}
+                  className={`neo-button w-full flex items-center justify-center gap-3 text-sm py-4 rounded-md ${
+                    topic.locked ? "bg-muted/30 text-muted cursor-not-allowed border-border" : 
+                    topic.progress === 100 ? "bg-brand-green text-black" : "bg-card hover:bg-brand-yellow text-foreground hover:text-black shadow-[3px_3px_0px_#000]"
+                  }`}
+                  disabled={topic.locked}
+                >
+                  {topic.locked ? "LOCKED" : topic.progress === 100 ? "REVIEW" : "START MISSION"} 
+                  {!topic.locked && <Play size={16} fill="currentColor" />}
+                </button>
+                {topic.progress > 0 && topic.progress < 100 && !topic.locked && (
+                  <button 
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      updateTopicProgress(topic.title, 10);
+                    }}
+                    className="text-[10px] font-black uppercase text-brand-blue hover:underline text-center"
+                  >
+                    Quick Resume (+10%)
+                  </button>
+                )}
               </div>
             </div>
-            <button 
-              onClick={() => updateTopicProgress(topic.title, 10)}
-              className={`neo-button w-full flex items-center justify-center gap-3 text-sm py-4 rounded-md ${
-                topic.locked ? "bg-muted/30 text-muted cursor-not-allowed border-border" : 
-                topic.progress === 100 ? "bg-brand-green text-black" : "bg-card hover:bg-brand-yellow text-foreground hover:text-black shadow-[3px_3px_0px_#000]"
-              }`}
-              disabled={topic.locked || topic.progress === 100}
-            >
-              {topic.locked ? "LOCKED" : topic.progress === 100 ? "COMPLETE" : "RESUME MISSION"} 
-              {!topic.locked && topic.progress < 100 && <Play size={16} fill="currentColor" />}
-            </button>
+          ))
+        ) : (
+          <div className="min-w-full py-12 neo-card bg-muted/5 border-dashed flex flex-col items-center justify-center opacity-50">
+            <p className="font-black uppercase tracking-widest text-sm">No topics matching "{searchQuery}"</p>
           </div>
-        ))}
+        )}
       </div>
     </div>
   );
