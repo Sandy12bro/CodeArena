@@ -163,6 +163,16 @@ function DashboardContent() {
           </div>
         </div>
 
+        {/* Scroll Progress Bar */}
+        <div className="absolute top-0 left-0 w-full h-1 z-50 bg-border/20">
+          <motion.div 
+            className="h-full bg-brand-yellow shadow-[0_0_10px_#facc15]"
+            initial={{ width: 0 }}
+            animate={{ width: `${((activeSection + 1) / sections.length) * 100}%` }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          />
+        </div>
+
         {/* Horizontal Scroll Container */}
         <div 
           ref={scrollRef}
@@ -172,18 +182,22 @@ function DashboardContent() {
           {sections.map((section, idx) => (
             <section 
               key={section.id}
-              className="min-w-full h-full snap-start flex flex-col justify-center px-10 pt-32 pb-24 shrink-0 transition-opacity duration-300"
-              style={{ opacity: activeSection === idx ? 1 : 0.4 }}
+              className="min-w-full h-full snap-start flex flex-col justify-center px-10 pt-32 pb-24 shrink-0 transition-opacity duration-500"
+              style={{ 
+                opacity: activeSection === idx ? 1 : 0.2,
+                transform: `scale(${activeSection === idx ? 1 : 0.95})`,
+                transition: "all 0.8s cubic-bezier(0.16, 1, 0.3, 1)"
+              }}
             >
               <div className="w-full flex-1 flex flex-col justify-center">
                 <AnimatePresence mode="wait">
                   {activeSection === idx && (
                     <motion.div
                       key={section.id}
-                      initial={{ opacity: 0, x: 100, filter: "blur(10px)" }}
-                      animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-                      exit={{ opacity: 0, x: -100, filter: "blur(10px)" }}
-                      transition={{ duration: 0.5, ease: "circOut" }}
+                      initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
+                      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                      exit={{ opacity: 0, y: -40, filter: "blur(10px)" }}
+                      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
                       className="w-full h-full flex flex-col justify-center"
                     >
                       {section.content}
@@ -195,38 +209,15 @@ function DashboardContent() {
           ))}
         </div>
 
-        {/* Navigation Overlay */}
-        <div className="absolute bottom-10 left-0 right-0 z-40 px-10 flex items-center justify-between pointer-events-none">
-          <div className="flex gap-4 pointer-events-auto">
-            <button 
-              onClick={() => scrollTo(activeSection - 1)}
-              disabled={activeSection === 0}
-              className="neo-button bg-card w-14 h-14 flex items-center justify-center p-0 disabled:opacity-30 disabled:cursor-not-allowed"
-            >
-              <ChevronLeft size={24} />
-            </button>
-            <button 
-              onClick={() => scrollTo(activeSection + 1)}
-              disabled={activeSection === sections.length - 1}
-              className="neo-button bg-brand-blue text-white w-14 h-14 flex items-center justify-center p-0 disabled:opacity-30 disabled:cursor-not-allowed"
-            >
-              <ChevronRight size={24} />
-            </button>
-          </div>
-
-          <div className="flex items-center gap-3 bg-card/80 backdrop-blur-md px-6 py-4 border-2 border-border rounded-full pointer-events-auto shadow-[4px_4px_0px_#000]">
-            {sections.map((s, i) => (
-              <button
-                key={s.id}
-                onClick={() => scrollTo(i)}
-                className={`group relative flex items-center gap-2 transition-all`}
-              >
-                <div className={`w-3 h-3 rounded-full border-2 border-black transition-all duration-300 ${activeSection === i ? 'bg-brand-yellow w-8' : 'bg-background hover:bg-brand-blue/30'}`}></div>
-                {activeSection === i && (
-                  <span className="text-[10px] font-black uppercase tracking-widest">{s.title}</span>
-                )}
-              </button>
-            ))}
+        {/* Scroll Hint Indicator */}
+        <div className="absolute bottom-10 right-10 z-40 flex items-center gap-4 pointer-events-none">
+          <span className="text-[10px] font-black uppercase tracking-[0.3em] text-foreground/40">Scroll to explore</span>
+          <div className="w-20 h-[2px] bg-border/30 relative overflow-hidden">
+            <motion.div 
+              className="absolute inset-0 bg-brand-yellow"
+              animate={{ x: [-80, 80] }}
+              transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
+            />
           </div>
         </div>
       </main>
