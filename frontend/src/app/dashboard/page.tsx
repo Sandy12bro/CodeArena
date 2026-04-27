@@ -76,12 +76,9 @@ function DashboardContent() {
               <section id="suggestions">
                 <MentorSuggestions />
               </section>
-              <section id="feedback">
-                <FeedbackSection />
-              </section>
             </div>
 
-            {/* Right Column - Social & Competitive */}
+            {/* Right Column - Social, Competitive & Feedback */}
             <div className="lg:col-span-1 space-y-10">
               <section id="activity">
                 <ActivityFeed />
@@ -92,6 +89,9 @@ function DashboardContent() {
                   Top Performers
                 </h2>
                 <Leaderboard />
+              </section>
+              <section id="feedback">
+                <FeedbackSection />
               </section>
             </div>
           </div>
