@@ -25,10 +25,10 @@ export default function ContinueLearning() {
         <span className="w-2 h-8 bg-brand-yellow inline-block"></span>
         Continue Learning
       </h2>
-      <div className="flex gap-8 overflow-x-auto pb-6 no-scrollbar touch-pan-x">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {filteredTopics.length > 0 ? (
           filteredTopics.map((topic, i) => (
-            <div key={i} className={`neo-card min-w-[340px] md:min-w-[360px] p-7 flex flex-col justify-between hover:bg-black/5 dark:hover:bg-white/5 hover:-translate-y-2 transition-all duration-300 ${getTopicBorder(topic.title)} ${topic.locked ? "opacity-50 grayscale" : "cursor-pointer"}`}>
+            <div key={i} className={`neo-card p-8 flex flex-col justify-between hover:bg-black/5 dark:hover:bg-white/5 hover:-translate-y-2 transition-all duration-300 ${getTopicBorder(topic.title)} ${topic.locked ? "opacity-50 grayscale" : "cursor-pointer"}`}>
               <div>
                 <div className="flex justify-between items-center mb-6">
                   <h3 className="font-black text-xl uppercase tracking-tighter">{topic.title}</h3>
@@ -68,7 +68,7 @@ export default function ContinueLearning() {
             </div>
           ))
         ) : (
-          <div className="min-w-full py-12 neo-card bg-muted/5 border-dashed flex flex-col items-center justify-center opacity-50">
+          <div className="col-span-full py-12 neo-card bg-muted/5 border-dashed flex flex-col items-center justify-center opacity-50">
             <p className="font-black uppercase tracking-widest text-sm">No topics matching "{searchQuery}"</p>
           </div>
         )}
