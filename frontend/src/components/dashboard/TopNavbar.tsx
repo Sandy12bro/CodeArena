@@ -33,7 +33,7 @@ export default function TopNavbar() {
       </Link>
 
       {/* Middle-Left: Navigation Links */}
-      <nav className="flex items-center gap-2 mr-auto">
+      <nav className="flex items-center gap-4 mr-auto">
         {navItems.map((item) => {
           const isActive = pathname === item.href;
           const activeBg = item.label === "Dashboard" ? "bg-brand-blue" : "bg-brand-yellow";
