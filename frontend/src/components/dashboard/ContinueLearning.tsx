@@ -25,15 +25,15 @@ export default function ContinueLearning() {
         <span className="w-2 h-8 bg-brand-yellow inline-block"></span>
         Continue Learning
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="flex gap-8 overflow-x-auto pb-6 no-scrollbar touch-pan-x">
         {filteredTopics.map((topic, i) => (
-          <div key={i} className={`neo-card p-6 flex flex-col justify-between hover:bg-black/5 dark:hover:bg-white/5 hover:-translate-y-2 transition-all duration-300 ${getTopicBorder(topic.title)} ${topic.locked ? "opacity-50 grayscale" : "cursor-pointer"}`}>
+          <div key={i} className={`neo-card min-w-[340px] md:min-w-[360px] p-7 flex flex-col justify-between hover:bg-black/5 dark:hover:bg-white/5 hover:-translate-y-2 transition-all duration-300 ${getTopicBorder(topic.title)} ${topic.locked ? "opacity-50 grayscale" : "cursor-pointer"}`}>
             <div>
-              <div className="flex justify-between items-center mb-5">
-                <h3 className="font-black text-lg uppercase tracking-tight">{topic.title}</h3>
-                <span className="font-black text-xs px-2 py-1 bg-foreground text-background rounded-sm">{topic.progress}%</span>
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="font-black text-xl uppercase tracking-tighter">{topic.title}</h3>
+                <span className="font-black text-sm px-3 py-1 bg-foreground text-background rounded-md">{topic.progress}%</span>
               </div>
-              <div className="w-full h-4 bg-muted/20 border-2 border-border rounded-full overflow-hidden mb-8">
+              <div className="w-full h-5 bg-muted/20 border-2 border-border rounded-full overflow-hidden mb-8 shadow-inner">
                 <div 
                   className={`h-full ${topic.color} transition-all duration-700 ease-out`} 
                   style={{ width: `${topic.progress}%` }}
@@ -42,14 +42,14 @@ export default function ContinueLearning() {
             </div>
             <button 
               onClick={() => updateTopicProgress(topic.title, 10)}
-              className={`neo-button w-full flex items-center justify-center gap-2 text-xs py-2 ${
+              className={`neo-button w-full flex items-center justify-center gap-3 text-sm py-4 rounded-md ${
                 topic.locked ? "bg-muted/30 text-muted cursor-not-allowed border-border" : 
-                topic.progress === 100 ? "bg-brand-green text-black" : "bg-card hover:bg-brand-yellow text-foreground hover:text-black"
+                topic.progress === 100 ? "bg-brand-green text-black" : "bg-card hover:bg-brand-yellow text-foreground hover:text-black shadow-[3px_3px_0px_#000]"
               }`}
               disabled={topic.locked || topic.progress === 100}
             >
-              {topic.locked ? "LOCKED" : topic.progress === 100 ? "COMPLETE" : "RESUME"} 
-              {!topic.locked && topic.progress < 100 && <Play size={14} fill="currentColor" />}
+              {topic.locked ? "LOCKED" : topic.progress === 100 ? "COMPLETE" : "RESUME MISSION"} 
+              {!topic.locked && topic.progress < 100 && <Play size={16} fill="currentColor" />}
             </button>
           </div>
         ))}

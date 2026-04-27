@@ -23,17 +23,17 @@ export default function QuickActions() {
         <span className="w-2 h-8 bg-brand-red inline-block"></span>
         Quick Actions
       </h2>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+      <div className="flex gap-8 overflow-x-auto pb-6 no-scrollbar touch-pan-x">
         {filtered.map((action, i) => (
           <div 
             key={i} 
             onClick={() => openModal(action.title)}
-            className={`neo-card ${action.tint} ${action.accent} p-6 flex flex-col items-center justify-center gap-4 cursor-pointer transition-all duration-200 hover:-translate-y-2 ${action.shadow} group`}
+            className={`neo-card min-w-[180px] ${action.tint} ${action.accent} p-8 flex flex-col items-center justify-center gap-5 cursor-pointer transition-all duration-200 hover:-translate-y-2 ${action.shadow} group rounded-md`}
           >
-            <div className="p-3 bg-card border-2 border-border rounded-md group-hover:rotate-6 transition-transform shadow-[2px_2px_0px_#000]">
-              <action.icon size={28} className={action.color} />
+            <div className="p-4 bg-card border-2 border-border rounded-md group-hover:rotate-6 transition-transform shadow-[3px_3px_0px_#000]">
+              <action.icon size={32} className={action.color} />
             </div>
-            <span className="font-black text-[10px] uppercase tracking-[0.2em] text-center opacity-70 group-hover:opacity-100">{action.title}</span>
+            <span className="font-black text-xs uppercase tracking-[0.2em] text-center opacity-70 group-hover:opacity-100">{action.title}</span>
           </div>
         ))}
       </div>
