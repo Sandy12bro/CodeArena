@@ -46,13 +46,19 @@ export default function CodePlayground() {
       if (normalized === "") {
         urls.add("/simulate");
         urls.add("/api/simulate");
-        urls.add("/run");
       } else {
         urls.add(`${normalized}/simulate`);
         urls.add(`${normalized}/api/simulate`);
-        urls.add(`${normalized}/run`);
       }
     };
+
+    // Always try the Next.js API route first.
+    // This avoids browser DNS issues for external backends (like Railway).
+    urls.add("/api/simulate");
+
+    if (typeof window !== "undefined") {
+      urls.add(`${window.location.origin}/api/simulate`);
+    }
 
     // 1. Critical Localhost Priority
     if (typeof window !== "undefined") {
@@ -62,11 +68,8 @@ export default function CodePlayground() {
       }
     }
 
-    // 2. High Priority: Explicitly configured URL
-    if (configuredApiBase) {
-      addBase(configuredApiBase);
-      return Array.from(urls);
-    }
+    // 2. Fallback: Explicitly configured URL (Railway)
+    if (configuredApiBase) addBase(configuredApiBase);
 
     // 3. Current Origins
     if (typeof window !== "undefined") {
