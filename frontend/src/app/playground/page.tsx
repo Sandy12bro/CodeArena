@@ -32,6 +32,24 @@ export default function CodePlayground() {
     { id: "python", name: "Python" }
   ];
 
+  const buildSimulationUrls = () => {
+    const configuredApiBase = process.env.NEXT_PUBLIC_API_URL?.trim();
+    const bases = new Set<string>();
+
+    if (configuredApiBase) bases.add(configuredApiBase.replace(/\/$/, ""));
+    bases.add("/api");
+
+    if (typeof window !== "undefined") {
+      bases.add(`${window.location.origin}/api`);
+
+      if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+        bases.add("http://localhost:5000");
+      }
+    }
+
+    return Array.from(bases).map((base) => `${base}/simulate`);
+  };
+
   const handleRun = async () => {
     setIsRunning(true);
     setOutput("AI is analyzing and executing your code...");
@@ -45,26 +63,37 @@ export default function CodePlayground() {
     }
 
     try {
-      const configuredApiBase = process.env.NEXT_PUBLIC_API_URL?.trim();
-      const apiBase = configuredApiBase || "/api";
-      const apiUrl = `${apiBase.replace(/\/$/, "")}/simulate`;
-      
-      const response = await fetch(apiUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ code, language })
-      });
+      const simulationUrls = buildSimulationUrls();
+      let lastError: Error | null = null;
+      let response: Response | null = null;
 
-      if (!response.ok) {
-        const result = await response.json();
-        throw new Error(result.error || "Simulation failed");
+      for (const url of simulationUrls) {
+        try {
+          response = await fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ code, language })
+          });
+
+          if (response.ok) break;
+
+          const result = await response.json().catch(() => ({}));
+          throw new Error(result.error || `Simulation failed (${response.status})`);
+        } catch (attemptError: any) {
+          lastError = attemptError instanceof Error ? attemptError : new Error("Network request failed");
+          response = null;
+        }
+      }
+
+      if (!response) {
+        throw lastError || new Error("Unable to reach simulation API");
       }
 
       const result = await response.json();
       setOutput(result.finalOutput || "Code executed successfully.");
       setTrace(result.trace || []);
     } catch (err: any) {
-      setError(`Simulation Error: ${err.message}.`);
+      setError(`Simulation Error: ${err.message}. Check backend/API availability.`);
     } finally {
       setIsRunning(false);
     }
