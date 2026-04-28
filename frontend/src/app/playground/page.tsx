@@ -88,10 +88,14 @@ export default function CodePlayground() {
             body: JSON.stringify({ code, language })
           });
 
-          if (response.ok) break;
+          if (response.ok) {
+            lastError = null;
+            break; // Success! Stop trying other URLs.
+          }
 
           const result = await response.json().catch(() => ({}));
-          throw new Error(result.error || `Simulation failed (${response.status})`);
+          lastError = new Error(result.error || `Simulation failed (${response.status}). Check backend/API availability.`);
+          response = null; // Mark as failed so we keep iterating
         } catch (attemptError: unknown) {
           lastError = attemptError instanceof Error ? attemptError : new Error("Network request failed");
           response = null;
