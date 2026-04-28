@@ -220,8 +220,9 @@ router.put("/user/:email", async (req, res) => {
   }
 });
 
-// Mount all routes at the root
+// Mount all routes at the root and /api for compatibility
 app.use("/", router);
+app.use("/api", router);
 
 // Catch-all (Express 4 compatible)
 app.get("*", (req, res) => {
