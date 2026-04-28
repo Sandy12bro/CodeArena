@@ -13,11 +13,25 @@ const User = require("./models/User");
 
 const app = express();
 
-// CORS configuration - Allow frontend domain
-app.use(cors({
-  origin: ["https://codearena-team.vercel.app", "https://codearena-production-5b50.up.railway.app", "*"],
-  credentials: true
-}));
+// CORS configuration for Vercel frontend + local development
+const allowedOrigins = [
+  "https://codearena-team.vercel.app",
+  "https://codearena-production-5b50.up.railway.app",
+  "http://localhost:3000",
+  "http://127.0.0.1:3000",
+];
+
+app.use(
+  cors({
+    origin(origin, callback) {
+      // Allow non-browser clients/tools and same-origin requests without Origin header.
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) return callback(null, true);
+      return callback(new Error("CORS not allowed for this origin"));
+    },
+    credentials: true,
+  })
+);
 
 // MongoDB connection
 const mongoUri = process.env.MONGODB_URI;
