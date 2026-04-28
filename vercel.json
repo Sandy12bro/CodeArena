@@ -5,6 +5,7 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "env": {
-    "NODE_ENV": "production"
+    "NODE_ENV": "production",
+    "NEXT_PUBLIC_API_URL": "https://codearena-production-5b50.up.railway.app"
   }
 }
