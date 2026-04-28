@@ -31,7 +31,6 @@ if (mongoUri) {
 app.use(express.json());
 
 // --- ROUTES ---
-const OpenAI = require("openai");
 const router = express.Router();
 
 // Test Route

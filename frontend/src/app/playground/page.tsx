@@ -1,19 +1,18 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import Editor from "@monaco-editor/react";
-import { Play, LogOut, User as UserIcon, Globe, AlertCircle, CheckCircle2, ChevronRight, ChevronLeft } from "lucide-react";
+import { Play, LogOut, Globe } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
 import { useRouter } from "next/navigation";
 import ProtectedRoute from "../../components/ProtectedRoute";
 import TopNavbar from "../../components/dashboard/TopNavbar";
 import ExecutionVisualizer from "../../components/ExecutionVisualizer";
 import { useTheme } from "../../context/ThemeContext";
-import { DashboardProvider } from "../../context/DashboardContext";
 
 export default function CodePlayground() {
   const { theme } = useTheme();
-  const { user, logout } = useAuth();
+  const { logout } = useAuth();
   const router = useRouter();
   
   // Core State
@@ -46,7 +45,8 @@ export default function CodePlayground() {
     }
 
     try {
-      const apiBase = process.env.NEXT_PUBLIC_API_URL || "";
+      const configuredApiBase = process.env.NEXT_PUBLIC_API_URL?.trim();
+      const apiBase = configuredApiBase || "/api";
       const apiUrl = `${apiBase.replace(/\/$/, "")}/simulate`;
       
       const response = await fetch(apiUrl, {
@@ -64,7 +64,7 @@ export default function CodePlayground() {
       setOutput(result.finalOutput || "Code executed successfully.");
       setTrace(result.trace || []);
     } catch (err: any) {
-      setError(`Simulation Error: ${err.message}. Please ensure NEXT_PUBLIC_API_URL is set correctly in Vercel.`);
+      setError(`Simulation Error: ${err.message}.`);
     } finally {
       setIsRunning(false);
     }

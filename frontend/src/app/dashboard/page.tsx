@@ -17,7 +17,7 @@ import QuickActions from "../../components/dashboard/QuickActions";
 import DailyChallenge from "../../components/dashboard/DailyChallenge";
 import MentorSuggestions from "../../components/dashboard/MentorSuggestions";
 import ActivityFeed from "../../components/dashboard/ActivityFeed";
-import Leaderboard from "../../components/Leaderboard";
+import Leaderboard from "../../components/dashboard/Leaderboard";
 import FeedbackSection from "../../components/dashboard/FeedbackSection";
 
 // Overlays

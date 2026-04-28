@@ -1,6 +1,5 @@
-import { Trophy } from "lucide-react";
-import { useDashboard } from "../context/DashboardContext";
-import { useAuth } from "../context/AuthContext";
+import { useDashboard } from "../../context/DashboardContext";
+import { useAuth } from "../../context/AuthContext";
 
 const LEADERBOARD_DATA = [
   { rank: 1, name: "Alex Chen", xp: 1250, badge: "Grandmaster", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Alex" },
@@ -18,38 +17,37 @@ const LEADERBOARD_DATA = [
 export default function Leaderboard() {
   const { searchQuery, xp, level: userLevel } = useDashboard();
   const { profilePic } = useAuth();
-  
-  // Combine user data with dummy data and sort by XP
+
   const rawData = [
-    ...LEADERBOARD_DATA.filter(u => !u.isUser),
-    { rank: 0, name: "You", xp: xp, badge: userLevel, isUser: true, avatar: profilePic }
+    ...LEADERBOARD_DATA.filter((u) => !u.isUser),
+    { rank: 0, name: "You", xp, badge: userLevel, isUser: true, avatar: profilePic },
   ];
 
-  // Sort and assign ranks
   const rankedData = rawData
     .sort((a, b) => b.xp - a.xp)
     .map((user, index) => ({
       ...user,
-      rank: index + 1
+      rank: index + 1,
     }));
 
-  const filteredData = rankedData.filter(user => 
-    user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    user.badge.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredData = rankedData.filter(
+    (user) =>
+      user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      user.badge.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
     <div className="flex flex-col gap-4 max-h-[400px] overflow-y-auto overflow-x-auto pr-2 custom-scrollbar">
       {filteredData.length > 0 ? (
         filteredData.map((user) => (
-          <div 
-            key={user.rank} 
+          <div
+            key={user.rank}
             className={`flex items-center justify-between p-4 border-2 border-border rounded-md transition-all hover:scale-[1.02] min-w-[280px] ${
               user.isUser ? "bg-brand-yellow text-black border-black shadow-[4px_4px_0px_#000]" : "bg-background/50"
             }`}
           >
             <div className="flex items-center gap-4 shrink-0">
-              <span className={`font-black text-lg w-6 flex justify-center ${user.rank === 1 ? 'text-brand-red text-2xl' : 'opacity-40'}`}>
+              <span className={`font-black text-lg w-6 flex justify-center ${user.rank === 1 ? "text-brand-red text-2xl" : "opacity-40"}`}>
                 {user.rank}
               </span>
               <div className="w-10 h-10 rounded-md border-2 border-black overflow-hidden bg-card flex justify-center items-center font-black text-xs">
